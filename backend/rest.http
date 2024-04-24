@@ -1,0 +1,160 @@
+## current auth user
+GET http://localhost:5000/v1/auth/auth/me
+Content-Type: application/json
+Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTMwODI1NTcsImV4cCI6MTcxMzA4MjYxN30.900_v-tanPrxEZ-7bJzsDKPh90HIMxO87MN8W-47Oio`
+
+
+### list admin
+GET http://localhost:5000/v1/admin/admin
+Content-Type: application/json
+
+###
+## create admin
+POST http://localhost:5000/v1/admin/admin
+Content-Type: application/json
+
+{
+  "name": "admin",
+  "email": "admin6@admin.com",
+  "mobileNumber": "6808704625",
+  "password": "1234"
+}
+
+###
+## Login
+POST http://localhost:5000/v1/auth/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "@Zeya123"
+}
+
+###
+## create customer
+POST http://localhost:5000/v1/customer/customer/
+Content-Type: application/json
+
+{
+  "customerInformation": {
+      "name": "Rose",
+      "companyName": "ABC Company",
+      "phone": 1234567890,
+      "gstNumber": "GST123456789",
+      "address": "123 Main St",
+      "city": "New York",
+      "postalCode": "10001"
+  },
+  "accountInformation": {
+      "customerLoadType": "ftl",
+      "pickupRequestOnLTLPanel": "ltlPanel",
+      "addReverseShipmentOnPTL": false,
+      "username": "rose___",
+      "email": "rose@simple.com",
+      "salesPerson": "60cfd9f35f097e31f48035b3",
+      "customerType": "customer"
+  },
+  "addresses": {
+      "pickupPoint": "Warehouse A",
+      "pickupLocation": "456 Oak St"
+  },
+  "charges": {
+      "isGstApplied": true,
+      "isPtlApisAllowed": true,
+      "shipperRisk": {
+          "percentOnConsignmentValue": 5,
+          "minimumAmount": 50
+      },
+      "careerRisk": {
+          "percentOnConsignmentValue": 3,
+          "minimumAmount": 30
+      }
+      ,
+      "fscCharge": 2,
+      "docketCharge": 10,
+      "handlingCharges": [
+          {
+              "fromKg": 0,
+              "toKg": 5,
+              "pricePerKg": 3,
+              "minimumAmount": 20
+          }
+      ],
+      "modeOfTransport": "surface",
+      "otherCharges": {
+          "reverseShipmentsCharges": 15,
+          "minimumChargeWeightOnDocket": 10,
+          "reattemptCharges": {
+              "pricePerKg": 1.5,
+              "minimumAmount": 10
+          },
+          "firstFloorAndAboveDeliveryCharges": 20,
+          "minimumChargableFreight": 30,
+          "appointmentDeliveryCharges": {
+              "pricePerKg": 2,
+              "minimumAmount": 15
+          },
+          "sundayAndNationalHolidayPickupCharges": 25,
+          "applyFirstMileCharge": {
+              "pricePerKg": 2.5,
+              "minimumAmount": 20
+          },
+          "appluFuelLinkageCharge": true,
+          "enablePtlPickupRequest": true
+      },
+      "odaLocationCharges": [
+          {
+              "fromKg": 0,
+              "toKg": 10,
+              "pricePerKg": 1,
+              "minimumAmount": 5
+          }
+      ],
+      "codFee": {
+          "codPercent": 2,
+          "codMinimumAmount": 10
+      },
+      "toPayCharges": {
+          "toPayPercent": 3,
+          "toPayMinimumAmount": 20
+      },
+      "greenTax": 5
+  }
+}
+###
+## list customers
+GET http://localhost:5000/v1/customer/customer/
+Content-Type: application/json
+
+###
+## list customer paginated
+GET http://localhost:5000/v1/customer/customer/1/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM3MjE5NzgsImV4cCI6MTcxMzcyMzc3OH0.PKjTSldFcBMVkd2YAj38CK6ZDjDdZUHVBA38pd-X7OU
+
+
+###
+## User accounts
+GET http://localhost:5000/v1/userAccount/userAccount
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM3MjE5NzgsImV4cCI6MTcxMzcyMzc3OH0.PKjTSldFcBMVkd2YAj38CK6ZDjDdZUHVBA38pd-X7OU
+
+###
+## Create User account
+POST http://localhost:5000/v1/userAccount/userAccount
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM4NjUxNTcsImV4cCI6MTcxMzg2Njk1N30.bECqqTuQenIrcslfiFjTY04fM91UgDx3hmWvsvR_rvs
+
+{
+  "name": "Test Account",
+  "email": "test5@sparrow.com",
+  "phoneNumber": 123456789,
+  "password": "1234",
+  "documents": [
+    {
+        "data": "abcd",
+        "contentType": "image/jpeg",
+        "documentName": "profile pic"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+// Here you can add other styles
+// .bg-dark{
+//     background-color: red!important;
+// }
+
+ul.pagination {
+    margin-bottom: 0;
+}
+
+.z-alert-fixed{
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    z-index: 9999;
+    min-width: 40%;
+}
