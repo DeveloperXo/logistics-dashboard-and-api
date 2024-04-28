@@ -134,27 +134,250 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmO
 
 
 ###
+## Filter customer
+GET http://localhost:5000/v1/customer/customer/filter/customer
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDgwNDUsImV4cCI6MTcxNDE0OTg0NX0.ERlF5PNYAO9uHXWvmGgbeRh5AcHBNI0_rSoWHpCxnJo
+
+###
+## Paginated filter customer
+GET http://localhost:5000/v1/customer/customer/filter/businessAssociate/1/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDgwNDUsImV4cCI6MTcxNDE0OTg0NX0.ERlF5PNYAO9uHXWvmGgbeRh5AcHBNI0_rSoWHpCxnJo
+
+
+
+
+
+
+
+
+
+###
 ## User accounts
 GET http://localhost:5000/v1/userAccount/userAccount
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM3MjE5NzgsImV4cCI6MTcxMzcyMzc3OH0.PKjTSldFcBMVkd2YAj38CK6ZDjDdZUHVBA38pd-X7OU
 
 ###
+## User account filter
+GET http://localhost:5000/v1/userAccount/userAccount/filter/vendor
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDg5NTIsImV4cCI6MTcxNDE1MDc1Mn0.XrnrziSuL1L0tz02-XyailJevcB6Bf41Zu8gO7iyqeE
+
+
+###
 ## Create User account
 POST http://localhost:5000/v1/userAccount/userAccount
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM4NjUxNTcsImV4cCI6MTcxMzg2Njk1N30.bECqqTuQenIrcslfiFjTY04fM91UgDx3hmWvsvR_rvs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDMxOTksImV4cCI6MTcxNDE0NDk5OX0.XFOXQuXWDGeVrLdPLhZteR0TShKbCoVV5PEmzWoOJrc
 
 {
   "name": "Test Account",
   "email": "test5@sparrow.com",
   "phoneNumber": 123456789,
   "password": "1234",
+  "functionAdditional": "vendor",
   "documents": [
     {
-        "data": "abcd",
+        "file": "IAMGE HERE",
         "contentType": "image/jpeg",
         "documentName": "profile pic"
     }
   ]
+}
+
+
+
+
+
+
+
+### Vehicles
+## Create vehicle
+POST http://localhost:5000/v1/common/vehicle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjY5ODMsImV4cCI6MTcxNDA2ODc4M30.29Fcmn6v523hAngLIcFac0D5FvbPDMP6xZozk8X6PuQ
+
+{
+    "vehicleName": "lambourghini 090",
+    "width": 70,
+    "height": 10,
+    "weight": 200,
+    "description": "Just a car",
+    "baseCharge": 4000,
+    "additionalServiceCharge": 700,
+    "baseFareByKm": [
+        {
+            "from": 0,
+            "to": 40,
+            "price": 4000
+        },
+        {
+            "from": 41,
+            "to": 80,
+            "price": 9000
+        }
+    ]
+}
+
+###
+## Get Vehicle list
+GET http://localhost:5000/v1/common/vehicle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjc5MjEsImV4cCI6MTcxNDA2OTcyMX0.0ujnp2b_p1Nf2J5Xlq99Nyn4eSZ5Unst0U55NkViWA0
+
+###
+## Paginate vehicles
+GET http://localhost:5000/v1/common/vehicle/paginate/1/10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjI1MzMsImV4cCI6MTcxNDA2NDMzM30.79PavTDl8X0Z6CYRBTxZuFfDo3QZ6Gg6RPJuKAIiyeo
+
+###
+## Get speific vehicle
+GET http://localhost:5000/v1/common/vehicle/this/662a86c4f6895602cd554d8b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjI1MzMsImV4cCI6MTcxNDA2NDMzM30.79PavTDl8X0Z6CYRBTxZuFfDo3QZ6Gg6RPJuKAIiyeo
+
+###
+## Update vehicle
+PUT http://localhost:5000/v1/common/vehicle/update/662a86c4f6895602cd554d8b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjI1MzMsImV4cCI6MTcxNDA2NDMzM30.79PavTDl8X0Z6CYRBTxZuFfDo3QZ6Gg6RPJuKAIiyeo
+
+{
+    "vehicleName": "lambourghini updated",
+    "width": 60,
+    "description": "Just more than a car",
+    "baseCharge": 7000,
+    "additionalServiceCharge": 700,
+    "baseFareByKm": [
+        {
+            "from": 0,
+            "to": 60,
+            "price": 4000
+        },
+        {
+            "from": 61,
+            "to": 180,
+            "price": 60000
+        },
+        {
+            "from": 61,
+            "to": 340,
+            "price": 60000
+        }
+    ]
+}
+
+###
+## Delete vehicle
+DELETE http://localhost:5000/v1/common/vehicle/delete/662a86c4f6895602cd554d8b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjc5MjEsImV4cCI6MTcxNDA2OTcyMX0.0ujnp2b_p1Nf2J5Xlq99Nyn4eSZ5Unst0U55NkViWA0
+
+
+
+
+################################################
+## CRM Queries
+
+## Get CRM Queries
+GET http://localhost:5000/v1/common/crm-query
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQyMjg3MDQsImV4cCI6MTcxNDIzMDUwNH0.Js0PybblMBK1IdgQuMEe_ILSbr1yIRTM7DmZgoiqJEI
+
+
+###
+## Create CRM Queries
+POST http://localhost:5000/v1/common/crm-query
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQyMjg3MDQsImV4cCI6MTcxNDIzMDUwNH0.Js0PybblMBK1IdgQuMEe_ILSbr1yIRTM7DmZgoiqJEI
+
+{
+    "email": "me2@me.com",
+    "phone": "1234567890",
+    "message": "Testing abc......!"
+}
+
+
+
+
+#################################################
+
+### Create web-price
+POST http://localhost:5000/v1/common/web-price
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQyMzk5MzYsImV4cCI6MTcxNDI0MTczNn0.znH7Z0hUdHj7ZlVE0ujTS26GXr8aMQnvbSc5oNiaZo8
+
+{
+    "name": "price-list 1",
+    "priceChart": [
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        }
+    ]
 }

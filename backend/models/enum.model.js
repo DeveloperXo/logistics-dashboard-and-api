@@ -48,7 +48,27 @@ const EnumUserAccountFunctionAdditional = {
     WAREHOUSE: 'warehouse',
     ACCOUNT: 'account',
     SALES_MANAGER: 'salesManager',
-    SALES: 'sales'
+    SALES: 'sales',
+    VENDOR: 'vendor'
+}
+
+const EnumPricePrefixes = {
+    N1: '[n1]', N2: '[n2]', N3: '[n3]', N4: '[n4]', N5: '[n5]', N6: '[n6]', N7: '[n7]', N8: '[n8]',
+    W1: '[w1]', w2: '[w2]', w3: '[w3]', W4: '[w4]',
+    S1: '[s1]', S2: '[s2]', S3: '[s3]', S4: '[s4]', S5: '[s5]', S6: '[s6]',
+    E1: '[e1]', E2: '[e2]', E3: '[e3]', E4: '[e4]'
+}
+
+const EnumTypeOfPrice = {
+    PTL: 'ptl',
+    FTL: 'ftl',
+}
+
+const EnumStatusOfPrice = {
+    ACTIVE: 'active',
+    INACTIVE: 'inactive',
+    PENDING: 'pending',
+    SUSPENDED: 'suspended'
 }
 
 module.exports = {
@@ -59,5 +79,8 @@ module.exports = {
     EnumTypeOfCustomer,
     EnumModesOfTransport,
     EnumTypeOfToken,
-    EnumUserAccountFunctionAdditional
+    EnumUserAccountFunctionAdditional,
+    EnumPricePrefixes,
+    EnumTypeOfPrice,
+    EnumStatusOfPrice
 }

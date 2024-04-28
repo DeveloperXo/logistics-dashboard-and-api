@@ -13,15 +13,22 @@ export const getCustomer = catchAsync(async (req, res) => {
 })
 
 export const listCustomer = catchAsync(async (req, res) => {
+    const { customerType } = req.params;
     const filter = {};
+    if (customerType) {
+        filter['accountInformation.customerType'] = customerType;
+    }
     const options = {};
     const customer = await customerService.getCustomerList(filter, options);
     return res.status(httpStatus.OK).send({ results: customer });
 });
 
 export const paginateCustomer = catchAsync(async (req, res) => {
-    const { page, limit } = req.params;
+    const { page, limit, customerType } = req.params;
     const filter = {};
+    if (customerType) {
+        filter['accountInformation.customerType'] = customerType;
+    }
     const options = {
         page: page,
         limit: limit

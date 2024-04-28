@@ -14,3 +14,22 @@ ul.pagination {
     z-index: 9999;
     min-width: 40%;
 }
+
+.z-functional-checks label {
+    text-transform: capitalize;
+}
+
+.z-square-form-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+
+.z-square-form-grid input {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+}
+
+.z-square-form-grid input::placeholder {
+    font-size: 12px!important;
+}

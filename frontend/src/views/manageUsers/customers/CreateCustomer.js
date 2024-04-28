@@ -85,7 +85,6 @@ const CreateCustomer = () => {
         fscCharge: "",
         docketCharge: "",
         modeOfTransport: "",
-        modeOfTransport: "",
         shipperRisk_percentOnConsignmentValue: "",
         shipperRisk_minimumAmount: "",
         careerRisk_percentOnConsignmentValue: "",
@@ -497,7 +496,7 @@ const CreateCustomer = () => {
                                         options={[
                                             'Select customer type',
                                             { label: 'Customer', value: 'customer' },
-                                            { label: 'User Account', value: 'user-account' }
+                                            { label: 'Business Associate', value: 'businessAssociate' }
                                         ]}
                                     />
                                     <CFormInput

@@ -52,6 +52,15 @@ const Upload = () => {
         uploadFile();
     }
 
+    const getFiles = async (_id) => {
+        const response = await axiosPrivate.get(`/userAccount/userAccount/get-files/${_id}`);
+        console.log('data', response.data)
+        console.log('files', response.data?.files)
+        console.log('file', response.data?.file)
+    }
+
+    getFiles('662a52f5e76280d97e6fc925');
+
     return (
         <CForm onSubmit={handleSubmit}>
             <CRow>

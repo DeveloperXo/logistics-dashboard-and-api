@@ -7,6 +7,7 @@ import {
     CCol,
     CForm,
     CFormInput,
+    CFormCheck,
     CRow,
     CAlert,
     CSpinner,
@@ -15,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { alertConstants } from '../../../constants/auxiliary.constants';
+import { functionAdditional } from '../../../constants/manageUser.constants';
 
 const CreateUserAccount = () => {
     const navigate = useNavigate();
@@ -58,7 +60,8 @@ const CreateUserAccount = () => {
         name: "",
         email: "",
         phoneNumber: "",
-        password: ""
+        password: "",
+        functionAdditional: ""
     });
     const [confirmPassword, setConfirmPassword] = useState("");
     const [documentsData, setDocumentsData] = useState([
@@ -109,6 +112,7 @@ const CreateUserAccount = () => {
                 email: updtUser.email,
                 phoneNumber: updtUser.phoneNumber,
                 password: "",
+                functionAdditional: updtUser.functionAdditional
             });
             setDocumentsData(() => {
                 const updatedDocuments = [];
@@ -210,7 +214,7 @@ const CreateUserAccount = () => {
                 }
             } else {
                 const response = await axiosPrivate.put(`/userAccount/userAccount/update/${id}`, JSON.stringify(payload));
-                uploadFile(id);
+                if(documentsData.length > 0) { uploadFile(id); }
                 if (response.data?.results) {
                     setAlert({
                         type: alertConstants.SUCCESS,
@@ -242,6 +246,7 @@ const CreateUserAccount = () => {
             }
         }
     }
+    console.log(formData)
     return (
         <CForm onSubmit={handleSubmit}>
             <CRow>
@@ -290,6 +295,25 @@ const CreateUserAccount = () => {
                                         required
                                     />
                                 </div>
+                            </div>
+
+                            <hr />
+
+                            <p><b>Function Additional</b></p>
+                            <div className="z-functional-checks d-flex justify-content-start align-items-center gap-3 flex-wrap mb-4">
+                                {...Object.values(functionAdditional).map((el, i) => (
+                                    <CFormCheck
+                                        placeholder="Full Name"
+                                        label={el}
+                                        name="functionAdditional"
+                                        id={`${i}-functionAdditional`}
+                                        onChange={handleFormDataOnChange}
+                                        value={el}
+                                        checked={formData.functionAdditional == el}
+                                        required
+                                        type="radio"
+                                    />
+                                ))}
                             </div>
 
                             <hr />

@@ -9,6 +9,11 @@ const router = express.Router();
 router.route('/').post(validate(customerValidations.createCustomerSchema), customerController.createCustomer);
 
 router.route('/').get(auth('admin'), customerController.listCustomer);
+
+router.route('/filter/:customerType').get(auth('admin'), customerController.listCustomer);
+
+router.route('/filter/:customerType/:page/:limit').get(auth('admin'), customerController.paginateCustomer);
+
 router.route('/:page/:limit').get(auth('admin'), customerController.paginateCustomer);
 
 router.route('/:customerId').get(validate(customerValidations.validateObjectId), auth('admin'), customerController.getCustomer);

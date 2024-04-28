@@ -9,7 +9,7 @@ const useRefreshToken = () => {
             const payload = {
                 refreshToken: JSON.parse(localStorage.getItem('log_refresh'))
             }
-            const response = await axios.post('/auth/auth/refresh-token', JSON.stringify(payload), {
+            const response = await axios.post('/common/auth/refresh-token', JSON.stringify(payload), {
                 headers: { 'Content-Type': 'application/json' },
             });
 
@@ -20,7 +20,7 @@ const useRefreshToken = () => {
             });
 
             if (!auth.user || !auth.role) {
-                const response = await axios.get('/auth/auth/me', {
+                const response = await axios.get('/common/auth/me', {
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
                 });
 

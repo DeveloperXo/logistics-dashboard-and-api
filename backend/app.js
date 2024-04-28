@@ -55,6 +55,8 @@ app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
 app.use('/v1', routes);
+app.use('/static-public', express.static('public'));
+
 
 // 404
 app.use((req, res, next) => {

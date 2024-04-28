@@ -7,8 +7,10 @@ import {
   cilCursor,
   cilDescription,
   cilDrop,
+  cilDollar,
   cilNotes,
   cilPencil,
+  cilPeople,
   cilPuzzle,
   cilSpeedometer,
   cilStar,
@@ -54,8 +56,53 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Business Associates',
+        to: '/manage-users/business-associates'
+      },
+      {
+        component: CNavItem,
         name: 'User Accounts',
         to: '/manage-users/user-accounts'
+      },
+      {
+        component: CNavItem,
+        name: 'Vendor',
+        to: '/manage-users/vendor'
+      }
+    ]
+  },
+
+  {
+    component: CNavItem,
+    name: 'Vehicle',
+    to: '/vehicle',
+    icon: <CIcon icon={cilTruck} customClassName="nav-icon" />,
+  },
+
+  {
+    component: CNavGroup,
+    name: 'CRM',
+    to: '/crm',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Query',
+        to: '/crm/queries'
+      }
+    ]
+  },
+
+  {
+    component: CNavGroup,
+    name: 'Price',
+    to: '/price',
+    icon: <CIcon icon={cilDollar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Web Price',
+        to: '/price/web'
       }
     ]
   },

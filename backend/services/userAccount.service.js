@@ -2,8 +2,6 @@ import ApiError from 'utils/ApiError';
 import httpStatus from 'http-status';
 import { UserAccount, Admin } from 'models';
 import { logger } from '../config/logger';
-import fs from 'fs';
-import path from 'path';
 
 export async function getUserAccountById(id, options = {}) {
     const user = await UserAccount.findById(id, options.projection, options);
@@ -68,13 +66,11 @@ export async function updateUserAccount(filter, body, options = {}) {
 }
 
 export async function uploadFiles(filter, body, options = {} ) {
-    console.log(filter);
     const userData = await getOne(filter, {});
     if (!userData) {
         throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
     const { documents, _documents } = body;
-    console.log('s_body _docs', body._documents);
 
     _documents.forEach(elem => {
         documents.forEach(e => {
@@ -83,7 +79,6 @@ export async function uploadFiles(filter, body, options = {} ) {
             }
         })
     })
-    console.log('docs_compared', documents)
     try {
         const updatedUser = await UserAccount.findOneAndUpdate(
             filter, 
@@ -100,6 +95,14 @@ export async function uploadFiles(filter, body, options = {} ) {
         throw new ApiError(httpStatus.BAD_REQUEST, error.message);
     }
 }
+
+// export async function getFiles(filter) {
+//     const user = await getOne(filter, {});
+//     if (!user) {
+//         throw new ApiError(httpStatus.BAD_REQUEST, 'User not found');
+//     }
+    
+// }
 
 export async function removeUserAccount(filter) {
     const user = UserAccount.findOneAndDelete(filter);

@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import enumModel from 'models/enum.model';
 Joi.objectId = require('joi-objectid')(Joi);
 
 const documentSchema = Joi.array().items(Joi.object({
@@ -13,6 +14,7 @@ export const createUserAccount = {
         email: Joi.string().required(),
         phoneNumber: Joi.number().required(),
         password: Joi.string().required(),
+        functionAdditional: Joi.string().valid(...Object.values(enumModel.EnumUserAccountFunctionAdditional)).required(),
         documents: documentSchema,
         _documents: Joi.array()
 

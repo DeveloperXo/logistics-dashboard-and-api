@@ -55,9 +55,21 @@ const Page404 = React.lazy(() => import('./views/pages/page404/Page404'));
 const Admin = React.lazy(() => import('./views/test/Admin'));
 const Customers = React.lazy(() => import('./views/manageUsers/customers/Customers'));
 const CreateCustomer = React.lazy(() => import('./views/manageUsers/customers/CreateCustomer'));
+
+const BusinessAssociates = React.lazy(() => import('./views/manageUsers/customers/BusinessAssociate'));
+
 const UserAccount = React.lazy(() => import('./views/manageUsers/userAccount/UserAccount'));
 const CreateUserAccount = React.lazy(() => import('./views/manageUsers/userAccount/CreateUserAccount'));
+const Vendor = React.lazy(() => import('./views/manageUsers/userAccount/Vendor'));
 const Upload = React.lazy(() => import('./views/manageUsers/userAccount/Upload'));
+
+const Vehicle = React.lazy(() => import('./views/vehicle/Vehicle'));
+const CreateVehicle = React.lazy(() => import('./views/vehicle/CreateVehicle'));
+
+const CrmQueries = React.lazy(() => import('./views/crm/queries/Queries'));
+
+const WebPrice = React.lazy(() => import('./views/price/web/WebPrice'));
+const CreateWebPrice = React.lazy(() => import('./views/price/web/CreateWebPrice'));
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
@@ -115,12 +127,29 @@ const routes = [
   { path: '/manage-users/customers/create', name: 'Create Customer', element: CreateCustomer },
   { path: '/manage-users/customers/update/:id', name: 'Update Customer', element: CreateCustomer },
   
+  { path: '/manage-users/business-associates', name: 'Business Associates', element: BusinessAssociates },
+  
   { path: '/manage-users/user-accounts', name: 'User Accounts', element: UserAccount },
   { path: '/manage-users/user-accounts/:page/:limit', name: 'User Accounts', element: UserAccount },
   { path: '/manage-users/user-accounts/create', name: 'Create User Account', element: CreateUserAccount },
   { path: '/manage-users/user-accounts/update/:id', name: 'Create User Account', element: CreateUserAccount },
+  { path: '/manage-users/vendor', name: 'Vendor', element: Vendor },
   
   { path: '/upload', name: 'Create User Account', element: Upload },
+
+  { path: '/vehicle', name: 'Vehicles', element: Vehicle },
+  { path: '/vehicle/:page/:limit', name: 'Vehicles', element: Vehicle },
+  { path: '/vehicle/create', name: 'Vehicles', element: CreateVehicle },
+  { path: '/vehicle/update/:id', name: 'Vehicles', element: CreateVehicle },
+
+  { path: '/crm/queries', name: 'Queries', element: CrmQueries },
+  { path: '/crm/queries/:page/:limit', name: 'Queries', element: CrmQueries },
+
+  { path: '/price/web', name: 'Web Price', element: WebPrice },
+  { path: '/price/web/:page/:limit', name: 'Web Price', element: WebPrice },
+  { path: '/price/web/create', name: 'Create Web Price', element: CreateWebPrice },
+  { path: '/price/web/update/:id', name: 'Create Web Price', element: CreateWebPrice },
+
 ]
 
 export default routes
