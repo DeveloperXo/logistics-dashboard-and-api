@@ -381,3 +381,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmO
         }
     ]
 }
+
+
+### Get web-price
+GET http://localhost:5000/v1/common/web-price
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQzMTM2MDEsImV4cCI6MTcxNDMxNTQwMX0.wTBk3tHYg6ToAOQJUSgqZN5-Xhyy4kHgm6KYARPJWhs

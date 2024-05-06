@@ -386,12 +386,12 @@ const CreateVehicle = () => {
                                     formData.image && updtVehicle ? <img style={{objectFit: "cover"}} width={200} height={200} crossOrigin="anonymous" src={`${process.env.REACT_APP_API_PUBLIC}assets/vehicles/${formData.image}`} alt={formData.vehicleName} />
                                         :
                                         <CFormInput
-                                        placeholder="Image"
-                                        label="Image"
-                                        name="image"
-                                        id="image"
-                                        onChange={handleFormDataOnChange}
-                                        type="file"
+                                            placeholder="Image"
+                                            label="Image"
+                                            name="image"
+                                            id="image"
+                                            onChange={handleFormDataOnChange}
+                                            type="file"
                                         />
                                     }
                                 </div>
@@ -400,7 +400,7 @@ const CreateVehicle = () => {
                         </CCardBody>
                         <CCardFooter>
                             <div className="d-flex justify-content-between">
-                                <CButton color="light" onClick={() => navigate('/manage-users/user-accounts')}>Cancel</CButton>
+                                <CButton color="light" onClick={() => navigate('/vehicle')}>Cancel</CButton>
                                 <CButton type="submit" color="primary">{!id ? 'Create' : 'Update'}</CButton>
                             </div>
                         </CCardFooter>

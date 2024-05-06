@@ -71,6 +71,9 @@ const CrmQueries = React.lazy(() => import('./views/crm/queries/Queries'));
 const WebPrice = React.lazy(() => import('./views/price/web/WebPrice'));
 const CreateWebPrice = React.lazy(() => import('./views/price/web/CreateWebPrice'));
 
+const PtlBookings = React.lazy(() => import('./views/ptl/ptlBookings/PtlBookings'));
+const CreatePtlBooking = React.lazy(() => import('./views/ptl/ptlBookings/CreatePtlBooking'));
+
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
@@ -149,6 +152,10 @@ const routes = [
   { path: '/price/web/:page/:limit', name: 'Web Price', element: WebPrice },
   { path: '/price/web/create', name: 'Create Web Price', element: CreateWebPrice },
   { path: '/price/web/update/:id', name: 'Create Web Price', element: CreateWebPrice },
+
+  { path: '/ptl/bookings', name: 'Ptl Booking', element: PtlBookings },
+  { path: '/ptl/bookings/create', name: 'Create Ptl Booking', element: CreatePtlBooking },
+
 
 ]
 

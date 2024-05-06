@@ -173,7 +173,7 @@ const CrmQueries = () => {
                 }
                 <CCard className="mb-4">
                     <CCardHeader className="d-flex justify-content-between align-items-center">
-                        <div><strong>Manage</strong> <small>CrmQueriess</small></div>
+                        <div><strong>Manage</strong> <small>Crm Queries</small></div>
                     </CCardHeader>
                     <CCardBody>
                         <div className="search-container d-flex justify-content-between">

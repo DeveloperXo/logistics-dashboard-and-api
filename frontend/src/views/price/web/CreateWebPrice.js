@@ -57,31 +57,12 @@ const CreateWebPrice = () => {
         if (id) {
             fetch();
         } else {
-            insert_items({ pre: 'n', index: '1' })
-            insert_items({ pre: 'n', index: '2' })
-            insert_items({ pre: 'n', index: '3' })
-            insert_items({ pre: 'n', index: '4' })
-            insert_items({ pre: 'n', index: '5' })
-            insert_items({ pre: 'n', index: '6' })
-            insert_items({ pre: 'n', index: '7' })
-            insert_items({ pre: 'n', index: '8' })
-        
-            insert_items({ pre: 'w', index: '1' })
-            insert_items({ pre: 'w', index: '2' })
-            insert_items({ pre: 'w', index: '3' })
-            insert_items({ pre: 'w', index: '4' })
-        
-            insert_items({ pre: 's', index: '1' })
-            insert_items({ pre: 's', index: '2' })
-            insert_items({ pre: 's', index: '3' })
-            insert_items({ pre: 's', index: '4' })
-            insert_items({ pre: 's', index: '5' })
-            insert_items({ pre: 's', index: '6' })
-        
-            insert_items({ pre: 'e', index: '1' })
-            insert_items({ pre: 'e', index: '2' })
-            insert_items({ pre: 'e', index: '3' })
-            insert_items({ pre: 'e', index: '4' })
+            for (let i = 1; i < 23; i++) {
+                if (i <= 8) insert_items({ pre: 'n', index: i });
+                else if (i > 8 && i <= 12) insert_items({ pre: 'w', index: i - 8 });
+                else if (i > 12 && i <= 18) insert_items({ pre: 's', index: i - 12 });
+                else if (i > 18) insert_items({ pre: 'e', index: i - 18 })
+            }
         }
     }, [])
 
@@ -136,7 +117,7 @@ const CreateWebPrice = () => {
                     }
 
                 ])
-            } if (i > 8 && i <= 12) {
+            } else if (i > 8 && i <= 12) {
                 setPriceChart((prev) => [
                     ...prev,
                     {
@@ -148,7 +129,7 @@ const CreateWebPrice = () => {
 
                 ])
             }
-            if (i > 12 && i <= 18) {
+            else if (i > 12 && i <= 18) {
                 setPriceChart((prev) => [
                     ...prev,
                     {
@@ -160,7 +141,7 @@ const CreateWebPrice = () => {
 
                 ])
             }
-            if (i > 18) {
+            else if (i > 18) {
                 setPriceChart((prev) => [
                     ...prev,
                     {
@@ -325,7 +306,7 @@ const CreateWebPrice = () => {
                         </CCardBody>
                         <CCardFooter>
                             <div className="d-flex justify-content-between">
-                                <CButton color="light" onClick={() => navigate('/manage-users/user-accounts')}>Cancel</CButton>
+                                <CButton color="light" onClick={() => navigate('/price/web')}>Cancel</CButton>
                                 <CButton type="submit" disabled={isLoading} color="primary">{isLoading ? 'Processing...' : !id ? 'Create' : 'Update'}</CButton>
                             </div>
                         </CCardFooter>

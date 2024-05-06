@@ -46,7 +46,7 @@ app.use(sendResponse);
 
 // enable cors
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://192.168.123.249:3000'],
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://192.168.123.249:3000', 'http://localhost:4173'],
     credentials: true
 }));
 

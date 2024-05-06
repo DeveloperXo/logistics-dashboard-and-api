@@ -5,7 +5,7 @@ import { axiosPrivate } from "../api/axios";
 export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: userAuthConstants.LOGIN_REQUEST });
-        const response = await axios.post('/auth/auth/login', JSON.stringify({ email, password }), {
+        const response = await axios.post('/common/auth/login', JSON.stringify({ email, password }), {
             headers: { 'Content-Type': 'application/json' }
         });
 
@@ -32,7 +32,7 @@ export const logout = () => async (dispatch) => {
         const payload = {
             refreshToken: JSON.parse(localStorage.getItem('log_refresh'))
         }
-        const response = await axiosPrivate.post('/auth/auth/logout', JSON.stringify(payload), {
+        const response = await axiosPrivate.post('/common/auth/logout', JSON.stringify(payload), {
             headers: { 'Content-Type': 'application/json' }
         });
 
