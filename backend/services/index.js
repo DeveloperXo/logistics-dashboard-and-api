@@ -6,3 +6,4 @@ module.exports.userAccountService = require('./userAccount.service');
 module.exports.vehicleService = require('./vehicle.service');
 module.exports.crmQueryService = require('./crmQuery.service');
 module.exports.webPriceService = require('./webPrice.service');
+module.exports.ptlBookingService = require('./ptlBooking.service');

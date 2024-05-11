@@ -87,7 +87,7 @@ export async function uploadFiles(filter, body, options = {} ) {
         );
 
         if (!updatedUser) {
-            throw new Error('User not found');
+            throw new Error(httpStatus.NOT_FOUND, 'Booking not found');
         }
         return updatedUser;
     } catch(error) {

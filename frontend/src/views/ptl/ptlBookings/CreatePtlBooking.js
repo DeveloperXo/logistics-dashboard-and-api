@@ -99,7 +99,7 @@ const CreatePtlBooking = () => {
         receiverName: "",
         receiverPhoneNumber: "",
         receiverAddress: "",
-        isNational: true,
+        receiverLocationType: "national",
         receiverPostalCode: "",
         receiverArea: "",
         receiverDistrict: "",
@@ -383,7 +383,6 @@ const CreatePtlBooking = () => {
                                         id="docketNumber"
                                         onChange={handleFormDataOnChange}
                                         value={formData.docketNumber}
-                                        type="number"
                                         required
                                     />
                                 </div>
@@ -395,7 +394,6 @@ const CreatePtlBooking = () => {
                                         id="threePlDocketNumber"
                                         onChange={handleFormDataOnChange}
                                         value={formData.threePlDocketNumber}
-                                        type="number"
                                         required
                                     />
                                 </div>
@@ -538,7 +536,7 @@ const CreatePtlBooking = () => {
                                         id="cftType"
                                         onChange={handleFormDataOnChange}
                                         type="radio"
-                                        value={formData.cftType == 'cftSurface' ? formData.cftType : 'cftSurface'}
+                                        value='cftSurface'
                                         checked={formData.cftType == 'cftSurface'}
                                     />
                                 </div>
@@ -549,7 +547,7 @@ const CreatePtlBooking = () => {
                                         id="cftType"
                                         onChange={handleFormDataOnChange}
                                         type="radio"
-                                        value={formData.cftType == 'cftAir' ? formData.cftType : 'cftAir'}
+                                        value='cftAir'
                                         checked={formData.cftType == 'cftAir'}
                                     />
                                 </div>
@@ -715,6 +713,136 @@ const CreatePtlBooking = () => {
                             <div className="d-md-flex justify-content-between">
                                 <p>Total Invoice Amount : {invoiceAmount}</p>
                                 <CButton size="sm" color="primary" onClick={addShipperInvoice}>+ Add</CButton>
+                            </div>
+
+                            <hr />
+
+                            <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
+                                <div className="flex-fill">
+                                    <CFormInput
+                                        placeholder="Shipper GSTIN"
+                                        label="Shipper GSTIN"
+                                        name="shipperGstIn"
+                                        id="shipperGstIn"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.shipperGstIn}
+                                    />
+                                </div>
+                                <div className="flex-fill">
+                                    <CFormInput
+                                        placeholder="Consignee GSTIN"
+                                        label="Consignee GSTIN"
+                                        name="consigneeGstIn"
+                                        id="consigneeGstIn"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.consigneeGstIn}
+                                    />
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <p className="text-muted"><b><i>Delivery Location Information:</i></b></p>
+                            <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
+                                <div className="flex-fill">
+                                    <CFormInput
+                                        placeholder="Receiver Name"
+                                        label="Receiver Name"
+                                        name="receiverName"
+                                        id="receiverName"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverName}
+                                    />
+                                </div>
+                                <div className="flex-fill">
+                                    <CFormInput
+                                        placeholder="Phone Number"
+                                        label="Phone Number"
+                                        name="receiverPhoneNumber"
+                                        id="receiverPhoneNumber"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverPhoneNumber}
+                                        type="number"
+                                    />
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
+                                <div className="flex-fill">
+                                    <CFormInput
+                                        placeholder="Address"
+                                        label="Address"
+                                        name="receiverAddress"
+                                        id="receiverAddress"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverAddress}
+                                    />
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
+                                <div className="flex-fill">
+                                    <CFormCheck
+                                        label="National"
+                                        name="receiverLocationType"
+                                        id="receiverLocationType"
+                                        onChange={handleFormDataOnChange}
+                                        type="radio"
+                                        value="national"
+                                        checked={formData.receiverLocationType == "national"}
+                                    />
+                                </div>
+                                <div className="flex-fill">
+                                    <CFormCheck
+                                        label="International"
+                                        name="receiverLocationType"
+                                        id="receiverLocationType"
+                                        onChange={handleFormDataOnChange}
+                                        type="radio"
+                                        value="international"
+                                        checked={formData.receiverLocationType == "international"}
+                                    />
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
+                                <div>
+                                    <CFormInput
+                                        placeholder="Postal Code"
+                                        label="Postal Code"
+                                        name="receiverPostalCode"
+                                        id="receiverPostalCode"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverPostalCode}
+                                    />
+                                </div>
+                                <div>
+                                    <CFormInput
+                                        placeholder="Area"
+                                        label="Area"
+                                        name="receiverArea"
+                                        id="receiverArea"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverArea}
+                                    />
+                                </div>
+                                <div>
+                                    <CFormInput
+                                        placeholder="District"
+                                        label="District"
+                                        name="receiverDistrict"
+                                        id="receiverDistrict"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverDistrict}
+                                    />
+                                </div>
+                                <div>
+                                    <CFormInput
+                                        placeholder="State"
+                                        label="State"
+                                        name="receiverState"
+                                        id="receiverState"
+                                        onChange={handleFormDataOnChange}
+                                        value={formData.receiverState}
+                                    />
+                                </div>
                             </div>
 
                         </CCardBody>

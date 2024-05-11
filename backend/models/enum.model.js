@@ -71,6 +71,45 @@ const EnumStatusOfPrice = {
     SUSPENDED: 'suspended'
 }
 
+const EnumCftType = {
+    CFT_AIR: 'cftAir',
+    CFT_SURFACE: 'cftSurface'
+}
+
+const EnumDeliveryLocationType = {
+    NATIONAL: 'national',
+    INTERNATIONAL: 'international'
+}
+
+const EnumDimensionUnits = {
+    CENTIMETER: 'centimeter',
+    INCH: 'inch'
+}
+
+const EnumFerightModes = {
+    TO_PAY: 'toPay',
+    TBB: 'tbb',
+    FOC: 'foc',
+    COD: 'cod'
+}
+
+const EnumStatusOfPtlBooking = {
+    CREATE_BOOKING: 'createBooking',
+    DRIVER_ASSIGN: 'driverAssign',
+    AT_WAREHOUSE: 'atWarehouse',
+    PICKED_UP: 'pickedUp',
+    IN_TRANSIT: 'inTransit',
+    REACHED_AT_DESTINATION_HUB: 'reachedAtDestinationHub',
+    OUT_FOR_DELIVERY: 'outForDelivery',
+    RETURN_TO_ORIGIN: 'returnToOrigin',
+    HOLD: 'hold',
+    PARTIAL_DELIVERED: 'partialDelivered',
+    DISPATCHED: 'dispatched',
+    DELIVERED: 'delivered',
+    CANCELLED: 'cancelled',
+    RE_ATTEMPT: 'reAttempt'
+}
+
 module.exports = {
     EnumRoleOfUser,
     EnumStatusOfUser,
@@ -82,5 +121,10 @@ module.exports = {
     EnumUserAccountFunctionAdditional,
     EnumPricePrefixes,
     EnumTypeOfPrice,
-    EnumStatusOfPrice
+    EnumStatusOfPrice,
+    EnumCftType,
+    EnumDeliveryLocationType,
+    EnumDimensionUnits,
+    EnumStatusOfPtlBooking,
+    EnumFerightModes
 }

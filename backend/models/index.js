@@ -6,3 +6,4 @@ module.exports.UserAccount = require('./userAccount.model');
 module.exports.Vehicle = require('./vehicle.model');
 module.exports.CrmQuery = require('./crmQuery.model');
 module.exports.WebPrice = require('./webPrice.model');
+module.exports.PtlBooking = require('./ptlBooking.model');

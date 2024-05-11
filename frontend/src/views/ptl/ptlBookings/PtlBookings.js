@@ -41,9 +41,9 @@ const PtlBookings = () => {
             setIsLoading(true);
             let response;
             if (query) {
-                response = await axiosPrivate.get(`/common/web-price/paginate/${query.page}/${query.limit}`);
+                response = await axiosPrivate.get(`/common/ptl-booking/paginate/${query.page}/${query.limit}`);
             } else {
-                response = await axiosPrivate.get('/common/web-price/paginate/1/10');
+                response = await axiosPrivate.get('/common/ptl-booking/paginate/1/10');
             }
             const _ptlBooking = response.data?.results;
             setPtlBookings(_ptlBooking)
@@ -72,7 +72,7 @@ const PtlBookings = () => {
     const handleDeletePtlBooking = async (id) => {
         try {
             if (confirm('Are you sure, you want to perform this action?')) {
-                const response = await axiosPrivate.delete(`/common/web-price/delete/${id}`, {
+                const response = await axiosPrivate.delete(`/common/ptl-booking/delete/${id}`, {
                     headers: { "Content-Type": "application/json" }
                 });
 
@@ -127,8 +127,8 @@ const PtlBookings = () => {
             _props: { scope: 'col' }
         },
         {
-            key: 'customer_name',
-            label: 'Customer Name',
+            key: 'shipper_name',
+            label: 'Shipper Name',
             _props: { scope: 'col' }
         },
         {
@@ -147,38 +147,18 @@ const PtlBookings = () => {
             _props: { scope: 'col' }
         },
         {
-            key: 'bmc_charged_weight',
-            label: 'BMC Charged Wt',
-            _props: { scope: 'col' }
-        },
-        {
-            key: 'threepl_chargable_weight',
-            label: '3PL Chargable Wt',
-            _props: { scope: 'col' }
-        },
-        {
             key: 'mode_of_transport',
             label: 'Mode Of Transport',
             _props: { scope: 'col' }
         },
         {
-            key: 'mode_of_payment',
-            label: 'Mode Of Payment',
+            key: 'feright_mode',
+            label: 'Feright Mode',
             _props: { scope: 'col' }
         },
         {
             key: 'status',
             label: 'Status',
-            _props: { scope: 'col' }
-        },
-        {
-            key: 'sent_date',
-            label: 'Sent Date',
-            _props: { scope: 'col' }
-        },
-        {
-            key: 'last_remarks',
-            label: 'Last Remarks',
             _props: { scope: 'col' }
         },
         {
@@ -199,19 +179,15 @@ const PtlBookings = () => {
         map_array && map_array.map((elem, key) => {
             items.push({
                 id: key,
-                docket_no: elem.docketNo,
+                docket_no: elem.docketNumber,
                 booking_date: elem.bookingDate,
-                customer_name: elem.customerName,
-                origin_state: elem.originState,
-                destination_state: elem.destinationState,
-                qty: elem.quantity,
-                bmc_charged_weight: elem.bmcChargedWeight,
-                threepl_chargable_weight: elem.threeplChargableWeight,
+                shipper_name: elem.shipperName,
+                origin_state: elem.originState ? elem.originState : '',
+                destination_state: elem.receiverState,
+                qty: elem.qty,
                 mode_of_transport: elem.modeOfTransport,
-                mode_of_payment: elem.modeOfPayment,
+                feright_mode: elem.ferightMode,
                 status: elem.status,
-                sent_date: elem.sentDate,
-                last_remarks: elem.lastRemarks,
                 action: <div><CButton className="my-0 py-0" onClick={() => navigate(`/ptl/bookings/update/${elem._id}`)}><CIcon title="Edit" icon={cilPencil}></CIcon></CButton><CButton className="my-0 py-0" onClick={() => handleDeletePtlBooking(elem._id)}><CIcon title="Delete" icon={cilX}></CIcon></CButton></div>
             })
         })
@@ -265,7 +241,7 @@ const PtlBookings = () => {
                                     <CSpinner color="info" />
                                 </div> :
                                 items && items.length !== 0 ?
-                                    <CTable className='z-table-large' columns={columns} items={items}></CTable> :
+                                    <CTable columns={columns} items={items}></CTable> :
                                     <p className="text-center">No items to display...</p>
                         }
                     </CCardBody>

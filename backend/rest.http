@@ -387,3 +387,95 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmO
 GET http://localhost:5000/v1/common/web-price
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQzMTM2MDEsImV4cCI6MTcxNDMxNTQwMX0.wTBk3tHYg6ToAOQJUSgqZN5-Xhyy4kHgm6KYARPJWhs
+
+
+
+
+
+
+
+
+
+
+
+### PTL Bookings
+
+## GET
+GET http://localhost:5000/v1/common/ptl-booking
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTU0NDgwNjYsImV4cCI6MTcxNTQ0OTg2Nn0.uWOI3A_S0fTL_AfUCw-mjzmmgsVxLB4ZikBZ2BPBxTo
+
+
+###
+## Create
+POST http://localhost:5000/v1/common/ptl-booking
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTU0NTE4MzMsImV4cCI6MTcxNTQ1MzYzM30.G1rglqp4-UQcZR_ig25fCxGmiW4C5cL5vhdg-11PWAQ
+
+{
+    "shipperName": "ABC Corporation",
+    "senderName": "John Doe",
+    "pickupLocation": "123 Main Street, Anytown",
+    "isShipperRisk": true,
+    "isCareerRisk": false,
+    "docketNumber": "DOC123456",
+    "threePlDocketNumber": "3PL789",
+    "threePlPartner": "XYZ Logistics",
+    "modeOfTransport": "surface",
+    "bookingDate": "2024-05-11",
+    "productDescription": "Electronics",
+    "actualWeight": 150,
+    "shipmentHasFragileContent": true,
+    "isReverseShipment": false,
+    "clientReferenceId": "REF789",
+    "qty": 2,
+    "dimensionUnit": "centimeter",
+    "dimensions": [
+        {
+            "qty": 1,
+            "length": 50,
+            "height": 30,
+            "width": 40,
+            "cftWeight": 25
+        },
+        {
+            "qty": 1,
+            "length": 60,
+            "height": 40,
+            "width": 35,
+            "cftWeight": 30
+        }
+    ],
+    "cftType": "cftSurface",
+    "cftTotalWeight": 55,
+    "ferightMode": "Air",
+    "ferightAmount": 500,
+    "shipperGstIn": "GSTIN123",
+    "consigneeGstIn": "GSTIN456",
+    "shipperInvoices": [
+        {
+            "eWayBillNo": 123456,
+            "invoiceNo": 789,
+            "invoiceAmount": 1000,
+            "invoiceDate": "2024-05-10",
+            "attachment": "invoice789.pdf"
+        }
+    ],
+    "receiverName": "Jane Smith",
+    "receiverPhoneNumber": 9876543210,
+    "receiverAddress": "456 Elm Street, Othertown",
+    "receiverLocationType": "national",
+    "receiverPostalCode": "54321",
+    "receiverArea": "Suburbia",
+    "receiverDistrict": "District",
+    "receiverState": "State",
+    "isReattemptOrRedeliveryCharges": true,
+    "isFirstFloorAndAboveDeliveryCharges": false,
+    "isOdaLocationCharges": true,
+    "isHandlingCharges": false,
+    "isAppointmentDeliveryCharges": true,
+    "isSundayAndNationalDeliveryCharges": false,
+    "isOtherAmountCharges": true,
+    "otherChargeName": "Customs Clearance",
+    "otherChargeAmount": 50
+}
