@@ -1,0 +1,13 @@
+Inside BA/Customer -- manage warehouse
+
+PTL Booking
+    from cust/ba acc
+
+Pickup req
+    customer, ba
+
+    Features
+        LR/Docket no    -- recent 10 + search if not avail -- multiple select
+        Date 
+        timeslot
+        warehouse location

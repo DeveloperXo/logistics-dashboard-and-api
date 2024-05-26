@@ -1,0 +1,79 @@
+// Here you can add other styles
+
+ul.pagination {
+    margin-bottom: 0;
+}
+
+.z-alert-fixed{
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    z-index: 9999;
+    min-width: 40%;
+}
+
+.z-functional-checks label {
+    text-transform: capitalize;
+}
+
+.z-square-form-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+
+.z-square-form-grid input {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+}
+
+.z-square-form-grid input::placeholder {
+    font-size: 12px!important;
+}
+
+.z-table-large thead tr th {
+    font-size: 10px;
+    font-weight: normal;
+}
+
+
+// SearchSelect
+
+.search-select-wrap {
+    margin: 15px 0;
+    position: relative;
+}
+
+.search-select-wrap .search-select-toggle {
+    padding: 10px 5px 0 5px;
+    border: 1px solid #eeeeee30;
+    border-radius: 5px;
+    box-shadow: 0px 10px 10px 5px rgba(0,0,0,0.1);
+    margin-top: 5px;
+    position: absolute;
+    background: var(--cui-body-bg);
+    opacity: 1;
+    width: 100%;
+    z-index: 9;
+}
+
+.search-select-wrap .search-select-toggle .select-search-options ul {
+    list-style: none;
+    padding: 0;
+}
+
+.search-select-wrap .search-select-toggle .select-search-options ul li {
+    padding: 5px;
+    border-bottom: 1px solid #eeeeee30;
+    cursor: pointer;
+}
+
+.search-select-wrap .search-select-toggle .select-search-options ul li:last-child {
+    border-bottom: none;
+}
+
+.search-select-wrap .search-select-toggle .select-search-options ul li:hover {
+    background-color: #5897FB;
+}
+
+// END SearchSelect

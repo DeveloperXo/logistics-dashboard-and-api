@@ -1,0 +1,494 @@
+## current auth user
+GET http://localhost:5000/v1/auth/auth/me
+Content-Type: application/json
+Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTMwODI1NTcsImV4cCI6MTcxMzA4MjYxN30.900_v-tanPrxEZ-7bJzsDKPh90HIMxO87MN8W-47Oio`
+
+
+### list admin
+GET http://localhost:5000/v1/admin/admin
+Content-Type: application/json
+
+###
+## create admin
+POST http://localhost:5000/v1/admin/admin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTY3MTEzMTAsImV4cCI6MTcxNjcxMzExMH0.wVnaydngJCfmXKsb3a3_e6DHjJw_3_rrHjGEriCQZeo
+
+{
+  "name": "admin",
+  "email": "admin7@admin.com",
+  "mobileNumber": "9808704686",
+  "password": "@Admin123"
+}
+
+###
+## Login
+POST http://localhost:5000/v1/auth/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "@Zeya123"
+}
+
+###
+## create customer
+POST http://localhost:5000/v1/customer/customer/
+Content-Type: application/json
+
+{
+  "customerInformation": {
+      "name": "Rose",
+      "companyName": "ABC Company",
+      "phone": 1234567890,
+      "gstNumber": "GST123456789",
+      "address": "123 Main St",
+      "city": "New York",
+      "postalCode": "10001"
+  },
+  "accountInformation": {
+      "customerLoadType": "ftl",
+      "pickupRequestOnLTLPanel": "ltlPanel",
+      "addReverseShipmentOnPTL": false,
+      "username": "rose___",
+      "email": "rose@simple.com",
+      "salesPerson": "60cfd9f35f097e31f48035b3",
+      "customerType": "customer"
+  },
+  "addresses": {
+      "pickupPoint": "Warehouse A",
+      "pickupLocation": "456 Oak St"
+  },
+  "charges": {
+      "isGstApplied": true,
+      "isPtlApisAllowed": true,
+      "shipperRisk": {
+          "percentOnConsignmentValue": 5,
+          "minimumAmount": 50
+      },
+      "careerRisk": {
+          "percentOnConsignmentValue": 3,
+          "minimumAmount": 30
+      }
+      ,
+      "fscCharge": 2,
+      "docketCharge": 10,
+      "handlingCharges": [
+          {
+              "fromKg": 0,
+              "toKg": 5,
+              "pricePerKg": 3,
+              "minimumAmount": 20
+          }
+      ],
+      "modeOfTransport": "surface",
+      "otherCharges": {
+          "reverseShipmentsCharges": 15,
+          "minimumChargeWeightOnDocket": 10,
+          "reattemptCharges": {
+              "pricePerKg": 1.5,
+              "minimumAmount": 10
+          },
+          "firstFloorAndAboveDeliveryCharges": 20,
+          "minimumChargableFreight": 30,
+          "appointmentDeliveryCharges": {
+              "pricePerKg": 2,
+              "minimumAmount": 15
+          },
+          "sundayAndNationalHolidayPickupCharges": 25,
+          "applyFirstMileCharge": {
+              "pricePerKg": 2.5,
+              "minimumAmount": 20
+          },
+          "appluFuelLinkageCharge": true,
+          "enablePtlPickupRequest": true
+      },
+      "odaLocationCharges": [
+          {
+              "fromKg": 0,
+              "toKg": 10,
+              "pricePerKg": 1,
+              "minimumAmount": 5
+          }
+      ],
+      "codFee": {
+          "codPercent": 2,
+          "codMinimumAmount": 10
+      },
+      "toPayCharges": {
+          "toPayPercent": 3,
+          "toPayMinimumAmount": 20
+      },
+      "greenTax": 5
+  }
+}
+###
+## list customers
+GET http://localhost:5000/v1/customer/customer/
+Content-Type: application/json
+
+###
+## list customer paginated
+GET http://localhost:5000/v1/customer/customer/1/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM3MjE5NzgsImV4cCI6MTcxMzcyMzc3OH0.PKjTSldFcBMVkd2YAj38CK6ZDjDdZUHVBA38pd-X7OU
+
+
+###
+## Filter customer
+GET http://localhost:5000/v1/customer/customer/filter/customer
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDgwNDUsImV4cCI6MTcxNDE0OTg0NX0.ERlF5PNYAO9uHXWvmGgbeRh5AcHBNI0_rSoWHpCxnJo
+
+###
+## Paginated filter customer
+GET http://localhost:5000/v1/customer/customer/filter/businessAssociate/1/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDgwNDUsImV4cCI6MTcxNDE0OTg0NX0.ERlF5PNYAO9uHXWvmGgbeRh5AcHBNI0_rSoWHpCxnJo
+
+###
+## Search customer
+GET http://localhost:5000/v1/customer/customer/search-emails/junisa
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTY1NjU0MDEsImV4cCI6MTcxNjU2NzIwMX0.XoHNgfj1AGl9fd7Sr7Tb8AlWW-AVF6xqkI5tl3MsmC4
+
+###
+## Get Selected
+###
+## Search customer
+GET http://localhost:5000/v1/customer/customer/get-selected/?_filter={"_id":"662534b133dbc74b3103a8a1"}&_options={"select":"addresses.pickupLocation"}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTY2MjM3MDAsImV4cCI6MTcxNjYyNTUwMH0.egBB8YKRZDOdG3pT_wGIRVzDWt7tnroACcdP4IplKvA
+
+
+
+
+
+###
+## User accounts
+GET http://localhost:5000/v1/userAccount/userAccount
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTM3MjE5NzgsImV4cCI6MTcxMzcyMzc3OH0.PKjTSldFcBMVkd2YAj38CK6ZDjDdZUHVBA38pd-X7OU
+
+###
+## User account filter
+GET http://localhost:5000/v1/userAccount/userAccount/filter/vendor
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDg5NTIsImV4cCI6MTcxNDE1MDc1Mn0.XrnrziSuL1L0tz02-XyailJevcB6Bf41Zu8gO7iyqeE
+
+
+###
+## Create User account
+POST http://localhost:5000/v1/userAccount/userAccount
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQxNDMxOTksImV4cCI6MTcxNDE0NDk5OX0.XFOXQuXWDGeVrLdPLhZteR0TShKbCoVV5PEmzWoOJrc
+
+{
+  "name": "Test Account",
+  "email": "test5@sparrow.com",
+  "phoneNumber": 123456789,
+  "password": "1234",
+  "functionAdditional": "vendor",
+  "documents": [
+    {
+        "file": "IAMGE HERE",
+        "contentType": "image/jpeg",
+        "documentName": "profile pic"
+    }
+  ]
+}
+
+
+
+
+
+
+
+### Vehicles
+## Create vehicle
+POST http://localhost:5000/v1/common/vehicle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjY5ODMsImV4cCI6MTcxNDA2ODc4M30.29Fcmn6v523hAngLIcFac0D5FvbPDMP6xZozk8X6PuQ
+
+{
+    "vehicleName": "lambourghini 090",
+    "width": 70,
+    "height": 10,
+    "weight": 200,
+    "description": "Just a car",
+    "baseCharge": 4000,
+    "additionalServiceCharge": 700,
+    "baseFareByKm": [
+        {
+            "from": 0,
+            "to": 40,
+            "price": 4000
+        },
+        {
+            "from": 41,
+            "to": 80,
+            "price": 9000
+        }
+    ]
+}
+
+###
+## Get Vehicle list
+GET http://localhost:5000/v1/common/vehicle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjc5MjEsImV4cCI6MTcxNDA2OTcyMX0.0ujnp2b_p1Nf2J5Xlq99Nyn4eSZ5Unst0U55NkViWA0
+
+###
+## Paginate vehicles
+GET http://localhost:5000/v1/common/vehicle/paginate/1/10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjI1MzMsImV4cCI6MTcxNDA2NDMzM30.79PavTDl8X0Z6CYRBTxZuFfDo3QZ6Gg6RPJuKAIiyeo
+
+###
+## Get speific vehicle
+GET http://localhost:5000/v1/common/vehicle/this/662a86c4f6895602cd554d8b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjI1MzMsImV4cCI6MTcxNDA2NDMzM30.79PavTDl8X0Z6CYRBTxZuFfDo3QZ6Gg6RPJuKAIiyeo
+
+###
+## Update vehicle
+PUT http://localhost:5000/v1/common/vehicle/update/662a86c4f6895602cd554d8b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjI1MzMsImV4cCI6MTcxNDA2NDMzM30.79PavTDl8X0Z6CYRBTxZuFfDo3QZ6Gg6RPJuKAIiyeo
+
+{
+    "vehicleName": "lambourghini updated",
+    "width": 60,
+    "description": "Just more than a car",
+    "baseCharge": 7000,
+    "additionalServiceCharge": 700,
+    "baseFareByKm": [
+        {
+            "from": 0,
+            "to": 60,
+            "price": 4000
+        },
+        {
+            "from": 61,
+            "to": 180,
+            "price": 60000
+        },
+        {
+            "from": 61,
+            "to": 340,
+            "price": 60000
+        }
+    ]
+}
+
+###
+## Delete vehicle
+DELETE http://localhost:5000/v1/common/vehicle/delete/662a86c4f6895602cd554d8b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQwNjc5MjEsImV4cCI6MTcxNDA2OTcyMX0.0ujnp2b_p1Nf2J5Xlq99Nyn4eSZ5Unst0U55NkViWA0
+
+
+
+
+################################################
+## CRM Queries
+
+## Get CRM Queries
+GET http://localhost:5000/v1/common/crm-query
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQyMjg3MDQsImV4cCI6MTcxNDIzMDUwNH0.Js0PybblMBK1IdgQuMEe_ILSbr1yIRTM7DmZgoiqJEI
+
+
+###
+## Create CRM Queries
+POST http://localhost:5000/v1/common/crm-query
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQyMjg3MDQsImV4cCI6MTcxNDIzMDUwNH0.Js0PybblMBK1IdgQuMEe_ILSbr1yIRTM7DmZgoiqJEI
+
+{
+    "email": "me2@me.com",
+    "phone": "1234567890",
+    "message": "Testing abc......!"
+}
+
+
+
+
+#################################################
+
+### Create web-price
+POST http://localhost:5000/v1/common/web-price
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQyMzk5MzYsImV4cCI6MTcxNDI0MTczNn0.znH7Z0hUdHj7ZlVE0ujTS26GXr8aMQnvbSc5oNiaZo8
+
+{
+    "name": "price-list 1",
+    "priceChart": [
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        },
+        {
+            "index": 1,
+            "from": "n1",
+            "to": "n1",
+            "price": 200
+        }
+    ]
+}
+
+
+### Get web-price
+GET http://localhost:5000/v1/common/web-price
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTQzMTM2MDEsImV4cCI6MTcxNDMxNTQwMX0.wTBk3tHYg6ToAOQJUSgqZN5-Xhyy4kHgm6KYARPJWhs
+
+
+
+
+
+
+
+
+
+
+
+### PTL Bookings
+
+## GET
+GET http://localhost:5000/v1/common/ptl-booking
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTU0NDgwNjYsImV4cCI6MTcxNTQ0OTg2Nn0.uWOI3A_S0fTL_AfUCw-mjzmmgsVxLB4ZikBZ2BPBxTo
+
+
+###
+## Create
+POST http://localhost:5000/v1/common/ptl-booking
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBlYzRmOTIxNzExNjhhYmQ0N2E2MWMiLCJpYXQiOjE3MTU0NTE4MzMsImV4cCI6MTcxNTQ1MzYzM30.G1rglqp4-UQcZR_ig25fCxGmiW4C5cL5vhdg-11PWAQ
+
+{
+    "shipperName": "ABC Corporation",
+    "senderName": "John Doe",
+    "pickupLocation": "123 Main Street, Anytown",
+    "isShipperRisk": true,
+    "isCareerRisk": false,
+    "docketNumber": "DOC123456",
+    "threePlDocketNumber": "3PL789",
+    "threePlPartner": "XYZ Logistics",
+    "modeOfTransport": "surface",
+    "bookingDate": "2024-05-11",
+    "productDescription": "Electronics",
+    "actualWeight": 150,
+    "shipmentHasFragileContent": true,
+    "isReverseShipment": false,
+    "clientReferenceId": "REF789",
+    "qty": 2,
+    "dimensionUnit": "centimeter",
+    "dimensions": [
+        {
+            "qty": 1,
+            "length": 50,
+            "height": 30,
+            "width": 40,
+            "cftWeight": 25
+        },
+        {
+            "qty": 1,
+            "length": 60,
+            "height": 40,
+            "width": 35,
+            "cftWeight": 30
+        }
+    ],
+    "cftType": "cftSurface",
+    "cftTotalWeight": 55,
+    "ferightMode": "cod",
+    "ferightAmount": 500,
+    "shipperGstIn": "GSTIN123",
+    "consigneeGstIn": "GSTIN456",
+    "shipperInvoices": [
+        {
+            "eWayBillNo": 123456,
+            "invoiceNo": 789,
+            "invoiceAmount": 1000,
+            "invoiceDate": "2024-05-10",
+            "attachment": "invoice789.pdf"
+        }
+    ],
+    "receiverName": "Jane Smith",
+    "receiverPhoneNumber": 9876543210,
+    "receiverAddress": "456 Elm Street, Othertown",
+    "receiverLocationType": "national",
+    "receiverPostalCode": "54321",
+    "receiverArea": "Suburbia",
+    "receiverDistrict": "District",
+    "receiverState": "State",
+    "isReattemptOrRedeliveryCharges": true,
+    "isFirstFloorAndAboveDeliveryCharges": false,
+    "isOdaLocationCharges": true,
+    "isHandlingCharges": false,
+    "isAppointmentDeliveryCharges": true,
+    "isSundayAndNationalDeliveryCharges": false,
+    "isOtherAmountCharges": true,
+    "otherChargeName": "Customs Clearance",
+    "otherChargeAmount": 50
+}
+
+

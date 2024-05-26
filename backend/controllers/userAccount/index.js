@@ -1,0 +1,1 @@
+module.exports.userAccountController = require('./userAccount.controller');
