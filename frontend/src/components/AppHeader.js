@@ -55,7 +55,7 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">Wallet Balance: 243.00</CNavLink>
+            <CNavLink href="/#/wallet">Wallet Balance: 243.00</CNavLink>
           </CNavItem>
         </CHeaderNav>
         <div className="ms-auto">

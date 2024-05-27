@@ -5,3 +5,5 @@ module.exports.crmQueryValidations = require('./crm.validations');
 module.exports.webPriceValidations = require('./webPrice.validation');
 module.exports.ptlBookingValidations = require('./ptlBooking.validations');
 module.exports.cashBookingValidations = require('./cashBooking.validation');
+module.exports.walletValidations = require('./wallet.validation');
+module.exports.walletTransactionValidations = require('./walletTransaction.validation');

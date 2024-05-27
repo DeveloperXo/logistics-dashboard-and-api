@@ -76,6 +76,9 @@ const CreatePtlBooking = React.lazy(() => import('./views/ptl/ptlBookings/Create
 const CashBookings = React.lazy(() => import('./views/ptl/cashBooking/CashBooking'));
 const CreateCashBooking = React.lazy(() => import('./views/ptl/cashBooking/CreateCashBooking'));
 
+const Wallet = React.lazy(() => import('./views/wallet/Wallet'));
+const WalletTransaction = React.lazy(() => import('./views/walletTransactions/WalletTransaction'));
+
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
@@ -165,6 +168,10 @@ const routes = [
   { path: '/ptl/cash-bookings/create', name: 'Create Cash Booking', element: CreateCashBooking, allowedRoles: ['admin']},
   { path: '/ptl/cash-bookings/update/:id', name: 'Update Cash Booking', element: CreateCashBooking, allowedRoles: ['admin']},
 
+  { path: '/wallet', name: 'Wallet', element: Wallet, allowedRoles: ['admin', 'customer', 'businessAssociate']},
+  { path: '/wallet/:page:/limit', name: 'Wallet', element: Wallet, allowedRoles: ['admin', 'customer', 'businessAssociate']},
+  { path: '/wallet-transactions/:id', name: 'Wallet Teansactions', element: WalletTransaction, allowedRoles: ['admin', 'customer', 'businessAssociate']},
+  { path: '/wallet-transactions/:id/:page:/limit', name: 'Wallet Teansactions', element: WalletTransaction, allowedRoles: ['admin', 'customer', 'businessAssociate']},
 
 ]
 

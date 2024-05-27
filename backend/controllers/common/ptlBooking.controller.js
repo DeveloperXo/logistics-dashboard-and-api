@@ -75,10 +75,6 @@ export const uploadAttachment = catchAsync(async (req, res) => {
         })
     })
     body.documents = documents;
-    console.log('filter', filter)
-    console.log('body', body)
-    console.log('req.files', req.files)
-    console.log('req.file', req.file)
     const ptlBooking = await ptlBookingService.uploadAttachment(filter, body);
     return res.status(httpStatus.OK).send({ results: ptlBooking });
 });

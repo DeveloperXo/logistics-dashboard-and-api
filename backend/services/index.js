@@ -8,3 +8,5 @@ module.exports.crmQueryService = require('./crmQuery.service');
 module.exports.webPriceService = require('./webPrice.service');
 module.exports.ptlBookingService = require('./ptlBooking.service');
 module.exports.cashBookingService = require('./cashBooking.service');
+module.exports.walletService = require('./wallet.service');
+module.exports.walletTransactionService = require('./walletTransaction.service');

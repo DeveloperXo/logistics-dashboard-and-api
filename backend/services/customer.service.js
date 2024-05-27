@@ -1,6 +1,6 @@
 import ApiError from 'utils/ApiError';
 import httpStatus from 'http-status';
-import { Customer, Admin } from 'models';
+import { Customer, Admin, Wallet } from 'models';
 import { logger } from '../config/logger';
 
 export async function getCustomerById(id, options = {}) {
@@ -33,6 +33,11 @@ export async function createCustomer(body) {
     }
     try {
         const customer = Customer.create(body);
+        await Wallet.create({
+            customerId: customer._id,
+            balance: 0,
+            lastRechargeDate: ""
+        });
         return customer;
     } catch (error) {
         logger.error('Error while creating customer: ', error);
@@ -54,6 +59,11 @@ export async function updateCustomer(filter, body, options = {}) {
     }
     try {
         const customer = await Customer.findOneAndUpdate(filter, body, options);
+        await Wallet.create({
+            customerId: customer._id,
+            balance: 0,
+            lastRechargeDate: ""
+        });
         return customer;
     } catch (error) {
         logger.error('Error while updating customer: ', error);

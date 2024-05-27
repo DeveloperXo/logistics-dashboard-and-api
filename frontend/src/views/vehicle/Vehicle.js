@@ -50,7 +50,6 @@ const Vehicle = () => {
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
-            console.log(err)
             if (err.response?.data?.message) {
                 setAlert({
                     type: alertConstants.DANGER,
@@ -91,7 +90,6 @@ const Vehicle = () => {
             }
 
         } catch (err) {
-            console.log(err)
             if (err.response?.data?.message) {
                 setAlert({
                     type: alertConstants.DANGER,
@@ -107,7 +105,6 @@ const Vehicle = () => {
     }
 
     const handlePaginationChange = (e) => {
-        console.log(page, limit)
         navigate(`/vehicle/1/${e.target.value}`);
     }
 
@@ -153,7 +150,6 @@ const Vehicle = () => {
         if (vehicles && vehicles.results) {
             map_array = vehicles.results;
             for (let i = 1; i <= vehicles.totalPages; i++) { pagination_pages.push(i) }
-            console.log(vehicles.totalPages)
         } else {
             map_array = vehicles ? vehicles : [];
         }

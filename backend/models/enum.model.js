@@ -110,6 +110,11 @@ const EnumStatusOfPtlBooking = {
     RE_ATTEMPT: 'reAttempt'
 }
 
+const EnumTypeOfTransaction = {
+    CREDIT: 'credit',
+    DEBIT: 'debit'
+}
+
 module.exports = {
     EnumRoleOfUser,
     EnumStatusOfUser,
@@ -126,5 +131,6 @@ module.exports = {
     EnumDeliveryLocationType,
     EnumDimensionUnits,
     EnumStatusOfPtlBooking,
-    EnumFerightModes
+    EnumFerightModes,
+    EnumTypeOfTransaction
 }

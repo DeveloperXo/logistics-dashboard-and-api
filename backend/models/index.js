@@ -8,3 +8,5 @@ module.exports.CrmQuery = require('./crmQuery.model');
 module.exports.WebPrice = require('./webPrice.model');
 module.exports.PtlBooking = require('./ptlBooking.model');
 module.exports.CashBooking = require('./cashBooking.model');
+module.exports.Wallet = require('./wallet.model');
+module.exports.WalletTransaction = require('./walletTransaction.model');

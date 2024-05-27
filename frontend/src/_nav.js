@@ -135,7 +135,6 @@ const getNavigationItems = (role) => {
     },
   ]
 
-  console.log(adminNavs)
   return role === 'admin' ? adminNavs : userNavs
 }
 
