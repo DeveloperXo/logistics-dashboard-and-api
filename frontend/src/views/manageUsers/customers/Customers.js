@@ -21,7 +21,7 @@ import {
 import { cilPencil, cilX } from "@coreui/icons";
 import CIcon from '@coreui/icons-react'
 import { getCustomers } from "../../../actions/manageUsers.action";
-import { alertConstants } from "../../../constants/auxiliary.constants";
+import { alertConstants, EnumStatusOfCustomer } from "../../../constants/auxiliary.constants";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Customers = () => {
@@ -63,7 +63,11 @@ const Customers = () => {
                         type: alertConstants.SUCCESS,
                         message: 'User deleted successfully.'
                     })
-                    dispatch(getCustomers(axiosPrivate));
+                    if (page && limit) {
+                        dispatch(getCustomers(axiosPrivate, { page: page, limit: limit }));
+                    } else {
+                        dispatch(getCustomers(axiosPrivate));
+                    }
                 }
             }
 
@@ -81,6 +85,26 @@ const Customers = () => {
             }
         }
 
+    }
+
+    const submitUpdateStatusForm = async (id, value) => {
+        try {
+            await axiosPrivate.put(`/customer/customer/this/update-status/${id}`, { status: value });
+            setAlert({
+                type: alertConstants.SUCCESS,
+                message: `Status set to ${value.toUpperCase()}.`
+            })
+            if (page && limit) {
+                dispatch(getCustomers(axiosPrivate, { page: page, limit: limit }));
+            } else {
+                dispatch(getCustomers(axiosPrivate));
+            }
+        } catch (err) {
+            setAlert({
+                type: alertConstants.DANGER,
+                message: 'Failed while updating status.'
+            });
+        }
     }
 
     const columns = [
@@ -127,7 +151,6 @@ const Customers = () => {
         if (users && users.results) {
             map_array = users.results;
             for (let i = 1; i <= users.totalPages; i++){ pagination_pages.push(i) }
-            console.log(users.totalPages)
         } else {
             users ? map_array = users : [];
         }
@@ -138,7 +161,21 @@ const Customers = () => {
                 email: user.accountInformation.email,
                 phone: user.customerInformation.phone,
                 created_at: user.createdAt ? user.createdAt.slice(0, 10) : '',
-                status: user.status,
+                status: <div>
+                    <CForm>
+                        <CFormSelect
+                            options={Object.keys(EnumStatusOfCustomer).map(e => {
+                                return {
+                                    label: e,
+                                    value: EnumStatusOfCustomer[e]
+                                }
+                            })}
+                            value={user.status}
+                            size="sm"
+                            onChange={(e) => submitUpdateStatusForm(user._id, e.target.value)}
+                        ></CFormSelect>
+                    </CForm>
+                    </div>,
                 action: <div><CButton className="my-0 py-0" onClick={() => navigate(`/manage-users/customers/update/${user._id}`)}><CIcon title="Edit" icon={cilPencil}></CIcon></CButton><CButton className="my-0 py-0" onClick={() => handleDeleteUser(user._id)}><CIcon title="Delete" icon={cilX}></CIcon></CButton></div>
             })
         })
@@ -203,7 +240,7 @@ const Customers = () => {
                         <CPagination align="end" aria-label="Page navigation example">
                             <CPaginationItem disabled={users?.totalResults ? !users?.hasPrevPage : true} onClick={() => navigate(`/manage-users/customers/${users?.prevPage}/${users?.limit}`)}>Previous</CPaginationItem>
                             {pagination_pages && pagination_pages.map((item) => (
-                                <CPaginationItem onClick={() => navigate(`/manage-users/customers/${item}/${users?.limit}`)}>{item}</CPaginationItem>
+                                <CPaginationItem onClick={() => navigate(`/manage-users/customers/${item}/${limit}`)}>{item}</CPaginationItem>
                             ))}
                             <CPaginationItem disabled={users?.totalResults ? !users?.hasNextPage : true} onClick={() => navigate(`/manage-users/customers/${users?.nextPage}/${users?.limit}`)}>Next</CPaginationItem>
                         </CPagination>

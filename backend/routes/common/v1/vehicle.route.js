@@ -30,19 +30,19 @@ const upload = multer({ storage: storage });
 
 const router = express.Router();
 
-router.route('/').post(auth('admin'), validate(vehicleValidations.createUserAccount), vehicleController.createVehicle);
+router.route('/').post(auth(['admin']), validate(vehicleValidations.createUserAccount), vehicleController.createVehicle);
 
-router.route('/').get(auth('admin'), vehicleController.listVehicle);
+router.route('/').get(auth(['admin']), vehicleController.listVehicle);
 
-router.route('/paginate/:page/:limit').get(auth('admin'), validate(auxiliaryValidations.paginate), vehicleController.paginateVehicle);
+router.route('/paginate/:page/:limit').get(auth(['admin']), validate(auxiliaryValidations.paginate), vehicleController.paginateVehicle);
 
-router.route('/this/:vehicleId').get(validate(vehicleValidations.validateObjectId), auth('admin'), vehicleController.getVehicle);
+router.route('/this/:vehicleId').get(auth(['admin']), validate(vehicleValidations.validateObjectId), vehicleController.getVehicle);
 
-router.route('/update/:vehicleId').put(validate(vehicleValidations.validateObjectId), auth('admin'), vehicleController.updateVehicle);
+router.route('/update/:vehicleId').put(auth(['admin']), validate(vehicleValidations.validateObjectId), vehicleController.updateVehicle);
 
-router.route('/delete/:vehicleId').delete(validate(vehicleValidations.validateObjectId), auth('admin'), vehicleController.removeVehicle);
+router.route('/delete/:vehicleId').delete(auth(['admin']), validate(vehicleValidations.validateObjectId), vehicleController.removeVehicle);
 
-router.route('/upload').put(auth('admin'), upload.single('image'),  vehicleController.uploadImage);
+router.route('/upload').put(auth(['admin']), upload.single('image'),  vehicleController.uploadImage);
 
 // router.route('/get-files/:vehicleId').get( vehicleController.getFiles);
 

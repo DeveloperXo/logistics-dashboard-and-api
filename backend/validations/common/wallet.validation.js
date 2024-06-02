@@ -34,3 +34,9 @@ export const validateObjectId = {
         walletId: Joi.objectId().required()
     })
 }
+
+export const validateObjectId_user = {
+    params: Joi.object().keys({
+        userId: Joi.objectId().required()
+    })
+}

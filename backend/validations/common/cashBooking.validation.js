@@ -136,3 +136,12 @@ export const validateObjectId = {
         cashBookingId: Joi.objectId().required()
     })
 }
+
+export const updateStatus = {
+    body: Joi.object().keys({
+        status: Joi.string().valid(...Object.values(enumModel.EnumStatusOfPtlBooking)).required(),
+    }),
+    params: Joi.object().keys({
+        cashBookingId: Joi.objectId().required()
+    }) 
+}

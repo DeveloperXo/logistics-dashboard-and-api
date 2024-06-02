@@ -7,7 +7,6 @@ import {
     CCard,
     CCardBody,
     CCardHeader,
-    CCardFooter,
     CCol,
     CForm,
     CFormInput,
@@ -72,7 +71,8 @@ const CreateCustomer = () => {
         city: "",
         postalCode: "",
         customerLoadType: "",
-        pickupRequestOnLTLPanel: "",
+        pickupRequestOnLTLPanel: false,
+        manageEcomKyc: false,
         addReverseShipmentOnPTL: false,
         username: "",
         email: "",
@@ -100,15 +100,16 @@ const CreateCustomer = () => {
         otherCharges_sundayAndNationalHolidayPickupCharges: "",
         otherCharges_applyFirstMileCharge_pricePerKg: "",
         otherCharges_applyFirstMileCharge_minimumAmount: "",
-        otherCharges_appluFuelLinkageCharge: "",
-        otherCharges_enablePtlPickupRequest: "",
+        otherCharges_appluFuelLinkageCharge: false,
+        otherCharges_enablePtlPickupRequest: false,
         codFee_codPercent: "",
         codFee_codMinimumAmount: "",
         toPayCharges_toPayPercent: "",
         toPayCharges_toPayMinimumAmount: "",
+        cftType: "",
+        cftSurface: "",
+        cftAir: "",
         greenTax: "",
-        password: "",
-        re_password: ""
     });
 
     useEffect(() => {
@@ -124,7 +125,8 @@ const CreateCustomer = () => {
                 city: updtCustomer.customerInformation?.city || "",
                 postalCode: updtCustomer.customerInformation?.postalCode || "",
                 customerLoadType: updtCustomer.accountInformation?.customerLoadType || "",
-                pickupRequestOnLTLPanel: updtCustomer.accountInformation?.pickupRequestOnLTLPanel?.toString() || "",
+                pickupRequestOnLTLPanel: updtCustomer.accountInformation?.pickupRequestOnLTLPanel || false,
+                manageEcomKyc: updtCustomer.accountInformation?.manageEcomKyc || false,
                 addReverseShipmentOnPTL: updtCustomer.accountInformation?.addReverseShipmentOnPTL?.toString() || false,
                 username: updtCustomer.accountInformation?.username || "",
                 email: updtCustomer.accountInformation?.email || "",
@@ -143,26 +145,73 @@ const CreateCustomer = () => {
                 careerRisk_minimumAmount: updtCustomer.charges?.careerRisk?.minimumAmount || "",
                 otherCharges_reverseShipmentsCharges: updtCustomer.charges?.otherCharges?.reverseShipmentsCharges || "",
                 otherCharges_minimumChargeWeightOnDocket: updtCustomer.charges?.otherCharges?.minimumChargeWeightOnDocket || "",
-                otherCharges_reattemptCharges_pricePerKg: updtCustomer.charges?.otherCharges?.reattemptCharges.pricePerKg || "",
-                otherCharges_reattemptCharges_minimumAmount: updtCustomer.charges?.otherCharges?.reattemptCharges.minimumAmount || "",
+                otherCharges_reattemptCharges_pricePerKg: updtCustomer.charges?.otherCharges?.reattemptCharges?.pricePerKg || "",
+                otherCharges_reattemptCharges_minimumAmount: updtCustomer.charges?.otherCharges?.reattemptCharges?.minimumAmount || "",
                 otherCharges_firstFloorAndAboveDeliveryCharges: updtCustomer.charges?.otherCharges?.firstFloorAndAboveDeliveryCharges || "",
                 otherCharges_minimumChargableFreight: updtCustomer.charges?.otherCharges?.minimumChargableFreight || "",
-                otherCharges_appointmentDeliveryCharges_pricePerKg: updtCustomer.charges?.otherCharges?.appointmentDeliveryCharges.pricePerKg || "",
-                otherCharges_appointmentDeliveryCharges_minimumAmount: updtCustomer.charges?.otherCharges?.appointmentDeliveryCharges.minimumAmount || "",
+                otherCharges_appointmentDeliveryCharges_pricePerKg: updtCustomer.charges?.otherCharges?.appointmentDeliveryCharges?.pricePerKg || "",
+                otherCharges_appointmentDeliveryCharges_minimumAmount: updtCustomer.charges?.otherCharges?.appointmentDeliveryCharges?.minimumAmount || "",
                 otherCharges_sundayAndNationalHolidayPickupCharges: updtCustomer.charges?.otherCharges?.sundayAndNationalHolidayPickupCharges || "",
-                otherCharges_applyFirstMileCharge_pricePerKg: updtCustomer.charges?.otherCharges?.applyFirstMileCharge.pricePerKg || "",
-                otherCharges_applyFirstMileCharge_minimumAmount: updtCustomer.charges?.otherCharges?.applyFirstMileCharge.minimumAmount || "",
-                otherCharges_appluFuelLinkageCharge: updtCustomer.charges?.otherCharges?.appluFuelLinkageCharge || "",
-                otherCharges_enablePtlPickupRequest: updtCustomer.charges?.otherCharges?.enablePtlPickupRequest || "",
-                codFee_codPercent: updtCustomer.charges?.codFee.codPercent || "",
-                codFee_codMinimumAmount: updtCustomer.charges?.codFee.codMinimumAmount || "",
-                toPayCharges_toPayPercent: updtCustomer.charges?.toPayCharges.toPayPercent || "",
-                toPayCharges_toPayMinimumAmount: updtCustomer.charges?.toPayCharges.toPayMinimumAmount || "",
+                otherCharges_applyFirstMileCharge_pricePerKg: updtCustomer.charges?.otherCharges?.applyFirstMileCharge?.pricePerKg || "",
+                otherCharges_applyFirstMileCharge_minimumAmount: updtCustomer.charges?.otherCharges?.applyFirstMileCharge?.minimumAmount || "",
+                otherCharges_appluFuelLinkageCharge: updtCustomer.charges?.otherCharges?.appluFuelLinkageCharge.toString() || "false",
+                otherCharges_enablePtlPickupRequest: updtCustomer.charges?.otherCharges?.enablePtlPickupRequest.toString() || "false",
+                codFee_codPercent: updtCustomer.charges?.codFee?.codPercent || "",
+                codFee_codMinimumAmount: updtCustomer.charges?.codFee?.codMinimumAmount || "",
+                toPayCharges_toPayPercent: updtCustomer.charges?.toPayCharges?.toPayPercent || "",
+                toPayCharges_toPayMinimumAmount: updtCustomer.charges?.toPayCharges?.toPayMinimumAmount || "",
+                cftType: updtCustomer.charges?.cftType,
+                cftSurface: updtCustomer.charges?.cftSurface,
+                cftAir: updtCustomer.charges?.cftAir,
                 greenTax: updtCustomer.charges?.greenTax || ""
             }));
+
+            if (updtCustomer?.charges?.handlingCharges) {
+                setHandlingCharges(() => {
+                    const updatedDocuments = [];
+                    updtCustomer.charges.handlingCharges.forEach((element, index) => {
+                        updatedDocuments[index] = {
+                            fromKg: element.fromKg,
+                            toKg: element.toKg,
+                            pricePerKg: element.pricePerKg,
+                            minimumAmount: element.minimumAmount
+                        }
+                    });
+                    return updatedDocuments;
+                });
+            }
+            if (updtCustomer?.charges?.odaLocationCharges) {
+                setOdaLocationCharges(() => {
+                    const updatedDocuments = [];
+                    updtCustomer.charges.odaLocationCharges.forEach((element, index) => {
+                        updatedDocuments[index] = {
+                            fromKg: element.fromKg,
+                            toKg: element.toKg,
+                            pricePerKg: element.pricePerKg,
+                            minimumAmount: element.minimumAmount
+                        }
+                    });
+                    return updatedDocuments;
+                });
+            }
+            if (updtCustomer.billingInformations) {
+                setBillingInformations(() => {
+                    const updatedDocuments = [];
+                    updtCustomer.billingInformations.forEach((element, index) => {
+                        updatedDocuments[index] = {
+                            title: element.title,
+                            companyName: element.companyName,
+                            address: element.address,
+                            gstNumber: element.gstNumber,
+                            branch: element.branch,
+                            paymentTerms: element.paymentTerms
+                        }
+                    });
+                    return updatedDocuments;
+                });
+            }
         }
     }, [updtCustomer]);
-    console.log(infoData)
 
     const handleInfoDataOnChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -238,18 +287,45 @@ const CreateCustomer = () => {
         });
     };
 
+    const [billingInformations, setBillingInformations] = useState([
+        {
+            title: "",
+            companyName: "",
+            address: "",
+            gstNumber: "",
+            branch: "",
+            paymentTerms: ""
+        }
+    ]);
+
+    const handleBillingInformationsOnChange = (index, field, value) => {
+        setBillingInformations(prev => {
+            const updatedCharges = [...prev];
+            updatedCharges[index] = {
+                ...updatedCharges[index],
+                [field]: value
+            };
+            return updatedCharges;
+        });
+    };
+    console.log('bik', billingInformations)
+
+    const addBillingInformation = () => {
+        setBillingInformations((prev) => [
+            ...prev,
+            {
+                title: "",
+                companyName: "",
+                address: "",
+                gstNumber: "",
+                branch: "",
+                paymentTerms: ""
+            }
+        ]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        for (const key in infoData) {
-            if (infoData[key] === '' || infoData[key] === null) {
-                setAlert({
-                    type: alertConstants.WARNING,
-                    message: `${key} is required...`
-                });
-                return;
-            }
-        }
 
         const composedData = {
             customerInformation: {
@@ -263,7 +339,8 @@ const CreateCustomer = () => {
             },
             accountInformation: {
                 customerLoadType: infoData.customerLoadType,
-                pickupRequestOnLTLPanel: infoData.pickupRequestOnLTLPanel,
+                pickupRequestOnLTLPanel: Boolean(infoData.pickupRequestOnLTLPanel),
+                manageEcomKyc: Boolean(infoData.manageEcomKyc),
                 addReverseShipmentOnPTL: infoData.addReverseShipmentOnPTL,
                 username: infoData.username,
                 email: infoData.email,
@@ -274,6 +351,7 @@ const CreateCustomer = () => {
                 pickupPoint: infoData.pickupPoint,
                 pickupLocation: infoData.pickupLocation
             },
+            billingInformations: billingInformations,
             charges: {
                 isGstApplied: infoData.isGstApplied,
                 isPtlApisAllowed: infoData.isPtlApisAllowed,
@@ -307,8 +385,8 @@ const CreateCustomer = () => {
                         pricePerKg: infoData.otherCharges_applyFirstMileCharge_pricePerKg,
                         minimumAmount: infoData.otherCharges_applyFirstMileCharge_minimumAmount
                     },
-                    appluFuelLinkageCharge: infoData.otherCharges_appluFuelLinkageCharge,
-                    enablePtlPickupRequest: infoData.otherCharges_enablePtlPickupRequest,
+                    appluFuelLinkageCharge: Boolean(infoData.otherCharges_appluFuelLinkageCharge),
+                    enablePtlPickupRequest: Boolean(infoData.otherCharges_enablePtlPickupRequest),
                 },
                 odaLocationCharges: odaLocationCharges,
                 codFee: {
@@ -319,9 +397,16 @@ const CreateCustomer = () => {
                     toPayPercent: infoData.toPayCharges_toPayPercent,
                     toPayMinimumAmount: infoData.toPayCharges_toPayMinimumAmount
                 },
-                greenTax: infoData.greenTax
+                greenTax: infoData.greenTax,
+                cftType: infoData.cftType,
+                cftSurface: infoData.cftSurface,
+                cftAir: infoData.cftAir,
             },
         };
+
+        console.log(composedData)
+        console.log('cd.other', composedData.charges.otherCharges)
+        console.log('cd.other.sunday', composedData.charges.otherCharges.sundayAndNationalHolidayPickupCharges)
 
         try {
             if (!id) {
@@ -414,17 +499,19 @@ const CreateCustomer = () => {
                                         label="LTL Panel"
                                         name="pickupRequestOnLTLPanel"
                                         id="pickupRequestOnLTLPanel_ltl"
-                                        checked={infoData.pickupRequestOnLTLPanel === "ltlPanel"}
-                                        value="ltlPanel"
+                                        checked={infoData.pickupRequestOnLTLPanel}
+                                        value="true"
+                                        type="checkbox"
                                         onChange={handleInfoDataOnChange}
                                     />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <CFormCheck
                                         label="Manage Ecom KYC"
-                                        name="pickupRequestOnLTLPanel"
+                                        name="manageEcomKyc"
                                         id="pickupRequestOnLTLPanel_manageEcomKyc"
-                                        checked={infoData.pickupRequestOnLTLPanel === "manageEcomKyc"}
-                                        value="manageEcomKyc"
+                                        checked={infoData.manageEcomKyc}
+                                        value="true"
+                                        type="checkbox"
                                         onChange={handleInfoDataOnChange}
                                     />
                                 </div>
@@ -499,26 +586,6 @@ const CreateCustomer = () => {
                                             { label: 'Business Associate', value: 'businessAssociate' }
                                         ]}
                                     />
-                                    <CFormInput
-                                        className="mx-2"
-                                        placeholder="Password"
-                                        aria-label="Password"
-                                        name="password"
-                                        onChange={handleInfoDataOnChange}
-                                        value={infoData.password}
-                                        id="password"
-                                        type="password"
-                                    />
-                                    <CFormInput
-                                        className="mx-2"
-                                        placeholder="Re-type Passowrd"
-                                        aria-label="Re-type Passowrd"
-                                        name="re_password"
-                                        onChange={handleInfoDataOnChange}
-                                        value={infoData.re_password}
-                                        id="rePassword"
-                                        type="password"
-                                    />
                                 </CInputGroup>
                             </div>
 
@@ -569,7 +636,7 @@ const CreateCustomer = () => {
                                 <div className="d-flex justify-content-start align-items-center gap-3">
                                     <div>
                                         <CFormInput
-                                            laceholder="Phone"
+                                            placeholder="Phone"
                                             label="Phone"
                                             name="phone"
                                             onChange={handleInfoDataOnChange}
@@ -638,6 +705,75 @@ const CreateCustomer = () => {
                             <div><small>Billing Informations</small></div>
                         </CCardHeader>
                         <CCardBody>
+
+                            {billingInformations.map((elem, index) => (
+                                <div key={`${index}-billingInformations`}>
+                                    {index !== 0 ? <hr /> : ''}
+                                    <div className="d-flex justify-content-start align-items-center gap-3 mb-2">
+                                        <div>
+                                            <CFormInput className="mb-3"
+                                                label="Title"
+                                                placeholder="Title"
+                                                name="title"
+                                                onChange={(e) => handleBillingInformationsOnChange(index, 'title', e.target.value)}
+                                                value={elem.title}
+                                            />
+                                        </div>
+                                        <div>
+                                            <CFormInput className="mb-3"
+                                                label="Company Name"
+                                                placeholder="Company Name"
+                                                name="companyName"
+                                                onChange={(e) => handleBillingInformationsOnChange(index, 'companyName', e.target.value)}
+                                                value={elem.companyName}
+                                            />
+                                        </div>
+                                        <div>
+                                            <CFormInput className="mb-3"
+                                                label="GST Number"
+                                                placeholder="GST Number"
+                                                name="gstNumber"
+                                                onChange={(e) => handleBillingInformationsOnChange(index, 'gstNumber', e.target.value)}
+                                                value={elem.gstNumber}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div key={`${index}-billingInformations-2`} className="d-flex justify-content-start align-items-center gap-3 mb-2">
+                                        <div className="flex-grow-1">
+                                            <CFormInput className="mb-3"
+                                                label="Address"
+                                                placeholder="Address"
+                                                name="address"
+                                                onChange={(e) => handleBillingInformationsOnChange(index, 'address', e.target.value)}
+                                                value={elem.address}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-start align-items-center gap-3 mb-2">
+                                        <div className="flex-grow-1">
+                                            <CFormInput className="mb-3"
+                                                label="Branch"
+                                                placeholder="Branch"
+                                                name="branch"
+                                                onChange={(e) => handleBillingInformationsOnChange(index, 'branch', e.target.value)}
+                                                value={elem.branch}
+                                            />
+                                        </div>
+                                        <div className="flex-grow-1">
+                                            <CFormInput className="mb-3"
+                                                label="Payment Terms"
+                                                placeholder="Payment Terms"
+                                                name="paymentTerms"
+                                                onChange={(e) => handleBillingInformationsOnChange(index, 'paymentTerms', e.target.value)}
+                                                value={elem.paymentTerms}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <div className="d-md-flex justify-content-md-end">
+                                <CButton size="sm" color="primary" onClick={addBillingInformation}>+ Add More</CButton>
+                            </div>
 
                         </CCardBody>
                     </CCard>
@@ -805,29 +941,52 @@ const CreateCustomer = () => {
                                 <hr />
 
                                 <p className="text-sm">CFT Surface</p>
-                                <div className="d-flex justify-content-start align-items-center gap-3 mb-4">
+                                <div className="d-flex justify-content-start align-items-center gap-3">
                                     <div>
                                         <CFormCheck
                                             inline
                                             type="radio"
-                                            // value={infoData.cft}
+                                            value="oldCft"
+                                            checked={infoData.cftType == "oldCft"}
+                                            onChange={handleInfoDataOnChange}
                                             label="Old CFT"
+                                            name="cftType"
                                         />
                                         <CFormCheck
+                                            inline
                                             className="mb-3"
-                                            inline type="radio"
-                                            value="option2"
+                                            type="radio"
+                                            value="newCft"
+                                            checked={infoData.cftType == "newCft"}
+                                            onChange={handleInfoDataOnChange}
                                             label="New CFT"
+                                            name="cftType"
                                         />
-                                        <CFormInput size="sm" placeholder="CFT Value" label="6 CFT Surface" />
-                                        <CFormInput size="sm" placeholder="CFT Value" label="CFT Surface" />
+                                    </div>
+                                </div>
+                                <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
+                                    <div>
+                                        <CFormInput
+                                            size="sm"
+                                            placeholder="CFT Value"
+                                            label="CFT Surface"
+                                            value={infoData.cftSurface}
+                                            onChange={handleInfoDataOnChange}
+                                            name="cftSurface"
+                                        />
                                     </div>
                                 </div>
 
-                                <p className="text-sm">CFT Air</p>
-                                <div className="d-flex justify-content-start align-items-center gap-3 mb-4">
+                                <div className="d-flex justify-content-start align-items-center gap-3 mb-3">
                                     <div>
-                                        <CFormInput size="sm" placeholder="CFT Air" />
+                                        <CFormInput
+                                            size="sm"
+                                            placeholder="CFT Value"
+                                            label="CFT Air"
+                                            value={infoData.cftAir}
+                                            onChange={handleInfoDataOnChange}
+                                            name="cftAir"
+                                        />
                                     </div>
                                 </div>
 
@@ -835,7 +994,7 @@ const CreateCustomer = () => {
 
                                 <p className="text-sm">Handling Charges</p>
                                 {handlingCharges.map((charge, index) => (
-                                    <div key={index} className="d-flex justify-content-start align-items-center gap-3 mb-2">
+                                    <div key={`${index}-handling-charges`} className="d-flex justify-content-start align-items-center gap-3 mb-2">
                                         <div>
                                             <CInputGroup>
                                                 <CFormInput

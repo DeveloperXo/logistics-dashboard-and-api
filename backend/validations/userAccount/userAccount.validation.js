@@ -26,3 +26,12 @@ export const validateObjectId = {
         userAccountId: Joi.objectId().required()
     })
 }
+
+export const updateStatus = {
+    body: Joi.object().keys({
+        status: Joi.string().valid(...Object.values(enumModel.EnumStatusOfUser)).required(),
+    }),
+    params: Joi.object().keys({
+        userAccountId: Joi.objectId().required()
+    }) 
+}

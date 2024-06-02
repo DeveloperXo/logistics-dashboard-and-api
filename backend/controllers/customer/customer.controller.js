@@ -71,7 +71,7 @@ export const searchByEmail = catchAsync(async (req, res) => {
         emailLike: email
     };
     if (req.user.role !== 'admin') {
-        filter._id = req.user._id
+        filter._id = req.user._id;
     }
     const options = {
         select: "_id accountInformation.email"
@@ -84,6 +84,9 @@ export const getOneSelected = catchAsync(async (req, res) => {
     const { _filter, _options } = req.query;
     const filter = JSON.parse(_filter);
     const options = JSON.parse(_options);
+    if (req.user.role !== 'admin') {
+        filter._id = req.user._id;
+    }
     const user = await customerService.getOne(filter, options);
     return res.status(httpStatus.OK).send({ results: [user] });
-})
+});

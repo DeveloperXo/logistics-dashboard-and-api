@@ -10,13 +10,11 @@ import {
     CFormCheck,
     CRow,
     CAlert,
-    CSpinner,
 } from '@coreui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
-import { alertConstants } from '../../../constants/auxiliary.constants';
-import { functionAdditional } from '../../../constants/manageUser.constants';
+import { alertConstants,functionAdditional } from '../../../constants/auxiliary.constants';
 
 const CreateUserAccount = () => {
     const navigate = useNavigate();

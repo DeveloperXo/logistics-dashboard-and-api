@@ -170,7 +170,8 @@ const routes = [
 
   { path: '/wallet', name: 'Wallet', element: Wallet, allowedRoles: ['admin', 'customer', 'businessAssociate']},
   { path: '/wallet/:page:/limit', name: 'Wallet', element: Wallet, allowedRoles: ['admin', 'customer', 'businessAssociate']},
-  { path: '/wallet-transactions/:id', name: 'Wallet Teansactions', element: WalletTransaction, allowedRoles: ['admin', 'customer', 'businessAssociate']},
+  { path: '/t-wallet-transactions', name: 'Wallet Teansactions', element: WalletTransaction, allowedRoles: ['admin', 'customer', 'businessAssociate']},
+  { path: '/wallet-transactions/:id', name: 'Wallet Teansactions', element: WalletTransaction, allowedRoles: ['admin']},
   { path: '/wallet-transactions/:id/:page:/limit', name: 'Wallet Teansactions', element: WalletTransaction, allowedRoles: ['admin', 'customer', 'businessAssociate']},
 
 ]

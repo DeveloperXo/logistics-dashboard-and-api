@@ -12,6 +12,15 @@ export const getWalletTransaction = catchAsync(async (req, res) => {
     return res.status(httpStatus.OK).send({ results: walletTransaction });
 });
 
+export const getAuthUserWalletTransaction = catchAsync(async (req, res) => {
+    const filter = {
+        customerId: req.user._id
+    };
+    const options = {};
+    const walletTransaction = await walletTransactionService.getWalletTransactionList(filter, options);
+    return res.status(httpStatus.OK).send({ results: walletTransaction });
+});
+
 export const listWalletTransaction = catchAsync(async (req, res) => {
     const filter = {};
     const options = {};

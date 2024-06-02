@@ -80,10 +80,8 @@ const CreateVehicle = () => {
             ...prev,
             [name]: e.target.files ? e.target.files[0] : value
         }));
-        console.log(e.target);
     }
     
-    console.log('formdata', formData)
     const handleBaseFareByKmOnChange = (index, field, value) => {
         setBaseFareByKm(prev => {
             const updatedDocuments = [...prev];

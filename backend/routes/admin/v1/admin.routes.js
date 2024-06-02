@@ -7,7 +7,7 @@ import { adminValidations } from 'validations/admin';
 const router = express.Router();
 
 router.route('/').post(auth(['admin']), validate(adminValidations.createAdmin), adminController.createAdmin); // remove after testing
-router.route('/').get(auth('admin'), adminController.listAdmin);
-router.route('/:adminId').put(validate(adminValidations.updateAdmin), auth('admin'), adminController.updateAdmin);
+router.route('/').get(auth(['admin']), adminController.listAdmin);
+router.route('/:adminId').put(validate(adminValidations.updateAdmin), auth(['admin']), adminController.updateAdmin);
 
 module.exports = router;

@@ -10,10 +10,8 @@ const AccountInformationSchema = new mongoose.Schema({
         type: String,
         enum: Object.values(enumModel.EnumLoadTypeOfCustomer)
     },
-    pickupRequestOnLTLPanel: {
-        type: String,
-        enum: Object.values(enumModel.EnumPickupRequestOnLTLPanel)
-    },
+    pickupRequestOnLTLPanel: Boolean,
+    manageEcomKyc: Boolean,
     addReverseShipmentOnPTL: {
         type: Boolean,
         default: false
@@ -61,7 +59,6 @@ const CustomerInformationSchema = new mongoose.Schema({
 });
 
 const AddressSchema = new mongoose.Schema({
-    // create different model file for billing address schema and give ref user id
     pickupPoint: {
         type: String
     },
@@ -69,6 +66,8 @@ const AddressSchema = new mongoose.Schema({
         type: String
     }
 });
+
+// const BillingInformationSchema = new mongoose.Schema();
 
 const ChargesChildShipperRisk = new mongoose.Schema({
     percentOnConsignmentValue: {
@@ -108,7 +107,7 @@ const ChargesChildOtherCharges = new mongoose.Schema({
         minimumAmount: Number
     },
     sundayAndNationalHolidayPickupCharges: {
-        minimumAmount: Number
+        type: Number
     },
     applyFirstMileCharge: {
         pricePerKg: Number,
@@ -166,6 +165,12 @@ const ChargesSchema = new mongoose.Schema({ // aka ptl informations
             minimumAmount: Number
         }
     ],
+    cftType: {
+        type: String,
+        enum: Object.values(enumModel.EnumCftType)
+    },
+    cftSurface: Number,
+    cftAir: Number,
     codFee: {
         codPercent: Number,
         codMinimumAmount: Number
@@ -189,6 +194,16 @@ const CustomerSchema = new mongoose.Schema({
     addresses: {
         type: AddressSchema
     },
+    billingInformations: [
+        {
+            title: String,
+            companyName: String,
+            address: String,
+            gstNumber: String,
+            branch: String,
+            paymentTerms: String
+        }
+    ],
     charges: {
         type: ChargesSchema
     },

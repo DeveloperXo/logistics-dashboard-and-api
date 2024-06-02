@@ -27,7 +27,7 @@ const WebPriceSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: Object.values(EnumStatusOfPrice),
-        default: EnumStatusOfPrice.PENDING
+        default: EnumStatusOfPrice.INACTIVE
     },
 }, { timestamps: true });
 

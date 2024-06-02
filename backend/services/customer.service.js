@@ -32,7 +32,7 @@ export async function createCustomer(body) {
         throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
     }
     try {
-        const customer = Customer.create(body);
+        const customer = await Customer.create(body);
         await Wallet.create({
             customerId: customer._id,
             balance: 0,
@@ -59,11 +59,6 @@ export async function updateCustomer(filter, body, options = {}) {
     }
     try {
         const customer = await Customer.findOneAndUpdate(filter, body, options);
-        await Wallet.create({
-            customerId: customer._id,
-            balance: 0,
-            lastRechargeDate: ""
-        });
         return customer;
     } catch (error) {
         logger.error('Error while updating customer: ', error);

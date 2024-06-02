@@ -40,7 +40,7 @@ const PtlBookingSchema = new mongoose.Schema({
     ],
     cftType: {
         type: String,
-        enum: Object.values(enumModel.EnumCftType)
+        enum: Object.values(enumModel.EnumPtlCftType)
     },
     cftTotalWeight: Number,
     ferightMode: {

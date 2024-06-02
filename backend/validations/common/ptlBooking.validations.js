@@ -38,7 +38,7 @@ export const createPtlBooking = {
                 cftWeight: Joi.number().required()
             }
         )),
-        cftType: Joi.string().valid(...Object.values(enumModel.EnumCftType)).required(),
+        cftType: Joi.string().valid(...Object.values(enumModel.EnumPtlCftType)).required(),
         cftTotalWeight: Joi.number().required(),
         ferightMode: Joi.string().valid(...Object.values(enumModel.EnumFerightModes)).required(),
         ferightAmount: Joi.number().required(),
@@ -102,7 +102,7 @@ export const updatePtlBooking = {
                 cftWeight: Joi.number()
             }
         )),
-        cftType: Joi.string().valid(...Object.values(enumModel.EnumCftType)),
+        cftType: Joi.string().valid(...Object.values(enumModel.EnumPtlCftType)),
         cftTotalWeight: Joi.number(),
         ferightMode: Joi.string().valid(...Object.values(enumModel.EnumFerightModes)),
         ferightAmount: Joi.number(),
@@ -145,4 +145,13 @@ export const validateObjectId = {
     params: Joi.object().keys({
         ptlBookingId: Joi.objectId().required()
     })
+}
+
+export const updateStatus = {
+    body: Joi.object().keys({
+        status: Joi.string().valid(...Object.values(enumModel.EnumStatusOfPtlBooking)).required(),
+    }),
+    params: Joi.object().keys({
+        ptlBookingId: Joi.objectId().required()
+    }) 
 }

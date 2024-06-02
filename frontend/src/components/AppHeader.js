@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -24,20 +24,39 @@ import {
 
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import useAuth from '../hooks/useAuth';
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 
 const AppHeader = () => {
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const { auth } = useAuth();
+  const [wallet, setWallet] = useState();
+  const axiosPrivate = useAxiosPrivate();
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
 
+  const getWallet = async () => {
+    try {
+      const response = await axiosPrivate.get(`/common/wallet/this-user-wallet`);
+      const _wallets = response.data?.results;
+      setWallet(_wallets)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
   useEffect(() => {
     document.addEventListener('scroll', () => {
       headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
+      headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
     });
-  }, [])
+    if (auth.role !== 'admin') {
+      getWallet();
+    }
+  }, []);
+
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
@@ -55,11 +74,11 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="/#/wallet">Wallet Balance: 243.00</CNavLink>
+            <CNavLink href="/#/wallet">Wallet { wallet && `Balance: ${ wallet.balance }`}</CNavLink>
           </CNavItem>
         </CHeaderNav>
         <div className="ms-auto">
-          
+
         </div>
         <CHeaderNav>
           <li className="nav-item py-1">

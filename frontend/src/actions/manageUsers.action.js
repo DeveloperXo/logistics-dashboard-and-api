@@ -9,11 +9,12 @@ export const getCustomers = (axiosPrivate, query) => async (dispatch) => {
         let response;
 
         if (query) {
-            response  = await axiosPrivate.get(`/customer/customer/paginate/${query?.page}/${query?.limit}`, {
+            // for all customers without filter : /customer/customer/paginate/1/10
+            response  = await axiosPrivate.get(`/customer/customer/filter/customer/${query?.page}/${query?.limit}`, {
                 signal: controller.signal
             });
         } else {
-            response  = await axiosPrivate.get(`/customer/customer/paginate/1/10`, {
+            response  = await axiosPrivate.get(`/customer/customer/filter/customer/1/10`, {
                 signal: controller.signal
             });
         }

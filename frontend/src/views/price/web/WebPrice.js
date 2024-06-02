@@ -20,7 +20,7 @@ import CIcon from '@coreui/icons-react';
 import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { useNavigate, useParams } from 'react-router-dom';
-import { alertConstants } from '../../../constants/auxiliary.constants';
+import { alertConstants, EnumStatusOfPrice } from '../../../constants/auxiliary.constants';
 
 const WebPrice = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -106,6 +106,22 @@ const WebPrice = () => {
         }
     }
 
+    const submitUpdateStatusForm = async (id, value) => {
+        try {
+            await axiosPrivate.put(`/common/web-price/update-status/${id}`, { status: value });
+            setAlert({
+                type: alertConstants.SUCCESS,
+                message: `Status set to ${value.toUpperCase()}.`
+            })
+            getWebPrice();
+        } catch (err) {
+            setAlert({
+                type: alertConstants.DANGER,
+                message: 'Failed while updating status.'
+            });
+        }
+    }
+
     const handlePaginationChange = (e) => {
         console.log(page, limit)
         navigate(`/price/web/1/${e.target.value}`);
@@ -158,7 +174,21 @@ const WebPrice = () => {
                 type: webPrice.type ? webPrice.type : '',
                 name: webPrice.name,
                 created_at: webPrice.createdAt ? webPrice.createdAt.slice(0, 10) : '',
-                status: webPrice.status,
+                status: <div>
+                    <CForm>
+                        <CFormSelect
+                            options={Object.keys(EnumStatusOfPrice).map(e => {
+                                return {
+                                    label: e,
+                                    value: EnumStatusOfPrice[e]
+                                }
+                            })}
+                            value={webPrice.status}
+                            size="sm"
+                            onChange={(e) => submitUpdateStatusForm(webPrice._id, e.target.value)}
+                        ></CFormSelect>
+                    </CForm>
+                </div>,
                 action: <div><CButton className="my-0 py-0" onClick={() => navigate(`/price/web/update/${webPrice._id}`)}><CIcon title="Edit" icon={cilPencil}></CIcon></CButton><CButton className="my-0 py-0" onClick={() => handleDeleteWebPrice(webPrice._id)}><CIcon title="Delete" icon={cilX}></CIcon></CButton></div>
             })
         })

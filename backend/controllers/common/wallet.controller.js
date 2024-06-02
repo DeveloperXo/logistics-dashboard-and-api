@@ -44,10 +44,21 @@ export const listWalletWithUserPaginated = catchAsync(async (req, res) => {
             return res.status(httpStatus.OK).send(wallet);
         }
     } catch (error) {
+        console.log('err', error)
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: error.message });
     }
 });
 
+export const getThisUserWallet = catchAsync(async (req, res) => {
+    const wallet = await walletService.getOne({ customerId: req.user._id }, {});
+    return res.status(httpStatus.OK).send({ results: wallet });
+});
+
+export const getThisUserWalletWithUser = catchAsync(async (req, res) => {
+    const wallet = await walletService.getOne({ customerId: req.user._id }, {});
+    const user = await customerService.getOne({ _id: req.user._id }, { select: "customerInformation.name customerInformation.phone accountInformation.email" });
+    return res.status(httpStatus.OK).send({ results: { wallet, user } })
+})
 
 export const paginateWallet = catchAsync(async (req, res) => {
     const { page, limit } = req.params;

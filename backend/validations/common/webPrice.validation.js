@@ -46,3 +46,12 @@ export const validateObjectId = {
         webPriceId: Joi.objectId().required()
     })
 }
+
+export const updateStatus = {
+    body: Joi.object().keys({
+        status: Joi.string().valid(...Object.values(EnumStatusOfPrice)).required(),
+    }),
+    params: Joi.object().keys({
+        webPriceId: Joi.objectId().required()
+    }) 
+}

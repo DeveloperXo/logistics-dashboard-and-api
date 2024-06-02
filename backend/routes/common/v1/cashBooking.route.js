@@ -32,6 +32,8 @@ router.route('/this/:cashBookingId').get(validate(cashBookingValidations.validat
 
 router.route('/update/:cashBookingId').put(validate(cashBookingValidations.validateObjectId), auth(['admin']), cashBookingController.updateCashBooking);
 
+router.route('/this/update-status/:cashBookingId').put(auth(['admin']), validate(cashBookingValidations.updateStatus), cashBookingController.updateCashBooking);
+
 router.route('/delete/:cashBookingId').delete(validate(cashBookingValidations.validateObjectId), auth(['admin']), cashBookingController.removeCashBooking);
 
 router.route('/upload-attachment').put(auth(['admin']), upload.array('files', 5),  cashBookingController.uploadAttachment);

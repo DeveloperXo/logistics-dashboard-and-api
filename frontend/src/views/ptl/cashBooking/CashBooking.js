@@ -20,7 +20,7 @@ import CIcon from '@coreui/icons-react';
 import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { useNavigate, useParams } from 'react-router-dom';
-import { alertConstants } from '../../../constants/auxiliary.constants';
+import { alertConstants, EnumStatusOfPtlBooking } from '../../../constants/auxiliary.constants';
 
 const cashBookings = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -106,6 +106,22 @@ const cashBookings = () => {
         }
     }
 
+    const submitUpdateStatusForm = async (id, value) => {
+        try {
+            await axiosPrivate.put(`/common/cash-booking/this/update-status/${id}`, { status: value });
+            setAlert({
+                type: alertConstants.SUCCESS,
+                message: `Status set to ${value.toUpperCase()}.`
+            })
+            getcashBooking();
+        } catch (err) {
+            setAlert({
+                type: alertConstants.DANGER,
+                message: 'Failed while updating status.'
+            });
+        }
+    }
+
     const handlePaginationChange = (e) => {
         navigate(`/ptl/cash-bookings/1/${e.target.value}`);
     }
@@ -169,7 +185,21 @@ const cashBookings = () => {
                 shipper_name: elem.shipperName.substring(0, 5) + '...',
                 qty: elem.qty,
                 mode_of_transport: elem.modeOfTransport,
-                status: elem.status,
+                status: <div>
+                    <CForm>
+                        <CFormSelect
+                            options={Object.keys(EnumStatusOfPtlBooking).map(e => {
+                                return {
+                                    label: e,
+                                    value: EnumStatusOfPtlBooking[e]
+                                }
+                            })}
+                            value={elem.status}
+                            size="sm"
+                            onChange={(e) => submitUpdateStatusForm(elem._id, e.target.value)}
+                        ></CFormSelect>
+                    </CForm>
+                </div>,
                 action: <div><CButton className="my-0 py-0" onClick={() => navigate(`/ptl/cash-bookings/update/${elem._id}`)}><CIcon title="Edit" icon={cilPencil}></CIcon></CButton><CButton className="my-0 py-0" onClick={() => handleDeletecashBooking(elem._id)}><CIcon title="Delete" icon={cilX}></CIcon></CButton></div>
             })
         })

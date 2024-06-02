@@ -40,6 +40,8 @@ router.route('/this/:ptlBookingId').get(validate(ptlBookingValidations.validateO
 
 router.route('/update/:ptlBookingId').put(validate(ptlBookingValidations.validateObjectId), auth(['admin', 'customer', 'businessAssociate']), ptlBookingController.updatePtlBooking);
 
+router.route('/this/update-status/:ptlBookingId').put(auth(['admin']), validate(ptlBookingValidations.updateStatus), ptlBookingController.updatePtlBooking);
+
 router.route('/delete/:ptlBookingId').delete(validate(ptlBookingValidations.validateObjectId), auth(['admin', 'customer', 'businessAssociate']), ptlBookingController.removePtlBooking);
 
 router.route('/upload-attachment').put(auth(['admin', 'customer', 'businessAssociate']), upload.array('files', 5),  ptlBookingController.uploadAttachment);

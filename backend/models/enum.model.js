@@ -72,8 +72,13 @@ const EnumStatusOfPrice = {
 }
 
 const EnumCftType = {
-    CFT_AIR: 'cftAir',
-    CFT_SURFACE: 'cftSurface'
+    OLD_CFT: 'oldCft',
+    NEW_CFT: 'newCft'
+}
+
+const EnumPtlCftType = {
+    CFT_SURFACE: 'cftSurface',
+    CFT_AIR: 'cftAir'
 }
 
 const EnumDeliveryLocationType = {
@@ -128,6 +133,7 @@ module.exports = {
     EnumTypeOfPrice,
     EnumStatusOfPrice,
     EnumCftType,
+    EnumPtlCftType,
     EnumDeliveryLocationType,
     EnumDimensionUnits,
     EnumStatusOfPtlBooking,

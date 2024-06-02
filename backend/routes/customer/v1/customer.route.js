@@ -18,7 +18,9 @@ router.route('/paginate/:page/:limit').get(auth(['admin']), customerController.p
 
 router.route('/this/:customerId').get(auth(['admin']), validate(customerValidations.validateObjectId), customerController.getCustomer);
 
-router.route('/this/:customerId').put(auth(['admin']), validate(customerValidations.validateObjectId), customerController.updateCustomer);
+router.route('/this/:customerId').put(auth(['admin']), validate(customerValidations.validateObjectId), validate(customerValidations.createCustomerSchema), customerController.updateCustomer);
+
+router.route('/this/update-status/:customerId').put(auth(['admin']), validate(customerValidations.updateStatus), customerController.updateCustomer);
 
 router.route('/this/:customerId').delete(auth(['admin']), validate(customerValidations.validateObjectId), customerController.removeCustomer);
 

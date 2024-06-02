@@ -19,11 +19,13 @@ import { alertConstants } from '../../../constants/auxiliary.constants';
 import SearchSelect from '../../../components/SearchSelect';
 import CIcon from '@coreui/icons-react';
 import { cilX } from '@coreui/icons';
+import useAuth from '../../../hooks/useAuth';
 
 const CreatePtlBooking = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const axiosPrivate = useAxiosPrivate();
+    const { auth } = useAuth();
     const [alert, setAlert] = useState();
     const [updtPtlBooking, setUpdtPrlBooking] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -96,12 +98,22 @@ const CreatePtlBooking = () => {
         if (id) {
             fetch();
         }
-        setShipperNamesOpt([
-            { value: '', label: 'Select Shipper Name' },
-        ]);
-        setPickupLocationsOpt([
-            { value: '', label: 'Select Pickup Location' },
-        ]);
+        if (auth.role === 'admin') {
+            setShipperNamesOpt([
+                { value: '', label: 'Select Shipper Name' },
+            ]);
+            setPickupLocationsOpt([
+                { value: '', label: 'Select Pickup Location' },
+            ]);
+        } else {
+            console.log(auth)
+            setShipperNamesOpt([
+                { value: auth.user._id, label: auth.user.customerInformation.name },
+            ]);
+            setPickupLocationsOpt([
+                { value: '', label: 'Select Pickup Location' },
+            ]);
+        }
     }, [])
 
     const [formData, setFormData] = useState({
@@ -384,13 +396,14 @@ const CreatePtlBooking = () => {
 
 
     useEffect(() => {
-        setShipperNamesOpt(() => {
-            let a = [];
-            searchShipperEmail.forEach(elem => {
-                a.push({ label: elem.accountInformation.email, value: elem._id })
+        if (auth.role === 'admin')
+            setShipperNamesOpt(() => {
+                let a = [];
+                searchShipperEmail.forEach(elem => {
+                    a.push({ label: elem.accountInformation.email, value: elem._id })
+                });
+                return a;
             });
-            return a;
-        });
     }, [searchShipperEmail]);
 
     const handleShipperNameOnChange = async (e) => {
@@ -435,7 +448,7 @@ const CreatePtlBooking = () => {
                                         name="shipperName"
                                         value={formData.shipperName}
                                         options={shipperNamesOpt}
-                                        onChangeSearch={(e) => searchEmail(e.target.value)}
+                                        onChangeSearch={(e) => auth.role === 'admin' && searchEmail(e.target.value)}
                                         onChange={handleShipperNameOnChange}
                                         required
                                     />

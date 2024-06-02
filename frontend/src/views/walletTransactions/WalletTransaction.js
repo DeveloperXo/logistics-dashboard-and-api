@@ -21,25 +21,30 @@ import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate, useParams } from 'react-router-dom';
 import { alertConstants } from '../../constants/auxiliary.constants';
-import { element } from 'prop-types';
+import useAuth from '../../hooks/useAuth';
 
 const WalletTransaction = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
+    const { auth } = useAuth();
     const [alert, setAlert] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [walletTransactions, setWalletTransactions] = useState([]);
-    const pagination_pages = [];
     const items = [];
     const { id } = useParams();
     
     const getWalletTransactions = async () => {
         try {
             setIsLoading(true);
-            const response = await axiosPrivate.get(`/common/wallet-transaction/this-user/${id}`);
-            const _walletTransactions = response.data?.results;
-            setWalletTransactions(_walletTransactions)
-            console.log(_walletTransactions)
+            if (auth.role !== 'admin') {
+                const response = await axiosPrivate.get(`/common/wallet-transaction/this-auth-user`);
+                const _walletTransactions = response.data?.results;
+                setWalletTransactions(_walletTransactions)
+            } else {
+                const response = await axiosPrivate.get(`/common/wallet-transaction/this-user/${id}`);
+                const _walletTransactions = response.data?.results;
+                setWalletTransactions(_walletTransactions)
+            }
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
@@ -109,7 +114,6 @@ const WalletTransaction = () => {
     ];
     if (isLoading == false) {
         walletTransactions && walletTransactions.reverse().map((e, key) => {
-            console.log(e)
             items.push({
                 id: key,
                 amount: e.amount,
@@ -119,9 +123,10 @@ const WalletTransaction = () => {
                 comment: e.comment,
                 date: e.createdAt ? e.createdAt.slice(0, 10) : '',
                 action: <div>
-                        <CButton className="my-0 py-0" onClick={() => navigate(`/walletTransaction-transactions/${e._id}`)}>
+                        {/* <CButton className="my-0 py-0" onClick={() => navigate(`/walletTransaction-transactions/${e._id}`)}>
                             <CIcon title="View" icon={cilPencil}></CIcon>
-                        </CButton>
+                        </CButton> */}
+                        -
                     </div>
             })
         })
@@ -136,7 +141,7 @@ const WalletTransaction = () => {
                 }
                 <CCard className="mb-4">
                     <CCardHeader className="d-flex justify-content-between align-items-center">
-                        <div><strong>Manage</strong> <small>WalletTransactions</small></div>
+                        <div><strong>Manage</strong> <small>Wallet Transactions</small></div>
                     </CCardHeader>
                     <CCardBody>
                         <div className="search-container d-flex justify-content-between">

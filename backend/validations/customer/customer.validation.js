@@ -107,35 +107,35 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 
 const ChargesChildShipperRisk = Joi.object({
-    percentOnConsignmentValue: Joi.number().required(),
-    minimumAmount: Joi.number().required()
+    percentOnConsignmentValue: Joi.number().allow('').empty(''),
+    minimumAmount: Joi.number().allow('').empty('')
 });
 
 const ChargesChildCareerRisk = Joi.object({
-    percentOnConsignmentValue: Joi.number().required(),
-    minimumAmount: Joi.number().required()
+    percentOnConsignmentValue: Joi.number().allow('').empty(''),
+    minimumAmount: Joi.number().allow('').empty('')
 });
 
 const ChargesChildOtherCharges = Joi.object({
-    reverseShipmentsCharges: Joi.number().required(),
-    minimumChargeWeightOnDocket: Joi.number().required(),
+    reverseShipmentsCharges: Joi.number().allow('').empty(''),
+    minimumChargeWeightOnDocket: Joi.number().allow('').empty(''),
     reattemptCharges: Joi.object({
-        pricePerKg: Joi.number().required(),
-        minimumAmount: Joi.number().required()
-    }).required(),
-    firstFloorAndAboveDeliveryCharges: Joi.number().required(),
-    minimumChargableFreight: Joi.number().required(),
+        pricePerKg: Joi.number().allow('').empty(''),
+        minimumAmount: Joi.number().allow('').empty('')
+    }),
+    firstFloorAndAboveDeliveryCharges: Joi.number().allow('').empty(''),
+    minimumChargableFreight: Joi.number().allow('').empty(''),
     appointmentDeliveryCharges: Joi.object({
-        pricePerKg: Joi.number().required(),
-        minimumAmount: Joi.number().required()
-    }).required(),
-    sundayAndNationalHolidayPickupCharges: Joi.number().required(),
+        pricePerKg: Joi.number().allow('').empty(''),
+        minimumAmount: Joi.number().allow('').empty('')
+    }),
+    sundayAndNationalHolidayPickupCharges: Joi.number().allow('').empty(''),
     applyFirstMileCharge: Joi.object({
-        pricePerKg: Joi.number().required(),
-        minimumAmount: Joi.number().required()
-    }).required(),
-    appluFuelLinkageCharge: Joi.boolean().required(),
-    enablePtlPickupRequest: Joi.boolean().required()
+        pricePerKg: Joi.number().allow('').empty(''),
+        minimumAmount: Joi.number().allow('').empty('')
+    }),
+    appluFuelLinkageCharge: Joi.boolean(),
+    enablePtlPickupRequest: Joi.boolean()
 });
 
 const ChargesSchema = Joi.object({
@@ -143,31 +143,34 @@ const ChargesSchema = Joi.object({
     isPtlApisAllowed: Joi.boolean().default(false),
     shipperRisk: ChargesChildShipperRisk.required(),
     careerRisk: ChargesChildCareerRisk.required(),
-    fscCharge: Joi.number(),
-    docketCharge: Joi.number(),
+    fscCharge: Joi.number().allow('').empty(''),
+    docketCharge: Joi.number().allow('').empty(''),
     handlingCharges: Joi.array().items(Joi.object({
-        fromKg: Joi.number().required(),
-        toKg: Joi.number().required(),
-        pricePerKg: Joi.number().required(),
-        minimumAmount: Joi.number().required()
+        fromKg: Joi.number().allow('').empty(''),
+        toKg: Joi.number().allow('').empty(''),
+        pricePerKg: Joi.number().allow('').empty(''),
+        minimumAmount: Joi.number().allow('').empty('')
     })),
     modeOfTransport: Joi.string().valid(...Object.values(enumModel.EnumModesOfTransport)).required(),
     otherCharges: ChargesChildOtherCharges.required(),
     odaLocationCharges: Joi.array().items(Joi.object({
-        fromKg: Joi.number().required(),
-        toKg: Joi.number().required(),
-        pricePerKg: Joi.number().required(),
-        minimumAmount: Joi.number().required()
+        fromKg: Joi.number().allow('').empty(''),
+        toKg: Joi.number().allow('').empty(''),
+        pricePerKg: Joi.number().allow('').empty(''),
+        minimumAmount: Joi.number().allow('').empty('')
     })),
     codFee: Joi.object({
-        codPercent: Joi.number().required(),
-        codMinimumAmount: Joi.number().required()
+        codPercent: Joi.number().allow('').empty(''),
+        codMinimumAmount: Joi.number().allow('').empty('')
     }),
     toPayCharges: Joi.object({
-        toPayPercent: Joi.number().required(),
-        toPayMinimumAmount: Joi.number().required()
+        toPayPercent: Joi.number().allow('').empty(''),
+        toPayMinimumAmount: Joi.number().allow('').empty('')
     }),
-    greenTax: Joi.number()
+    greenTax: Joi.number().allow('').empty(''),
+    cftType: Joi.string().valid(...Object.values(enumModel.EnumCftType)).required(),
+    cftSurface: Joi.number().allow('').empty(''),
+    cftAir: Joi.number().allow('').empty(''),
 });
 
 const CustomerInformationSchema = Joi.object({
@@ -185,13 +188,23 @@ const AddressSchema = Joi.object({
     pickupLocation: Joi.string().required()
 });
 
+const BillingInformationSchema = Joi.array().items(Joi.object({
+    title: Joi.string().required(),
+    companyName: Joi.string().required(),
+    address: Joi.string().required(),
+    gstNumber: Joi.string().required(),
+    branch: Joi.string().required(),
+    paymentTerms: Joi.string().required()
+}));
+
 const AccountInformationSchema = Joi.object({
     customerLoadType: Joi.string().valid(...Object.values(enumModel.EnumLoadTypeOfCustomer)).required(),
-    pickupRequestOnLTLPanel: Joi.string().valid(...Object.values(enumModel.EnumPickupRequestOnLTLPanel)).required(),
+    pickupRequestOnLTLPanel: Joi.boolean().default(false),
+    manageEcomKyc: Joi.boolean().default(false),
     addReverseShipmentOnPTL: Joi.boolean().default(false),
     username: Joi.string().required(),
     email: Joi.string().required(),
-    salesPerson: Joi.string().required(),
+    salesPerson: Joi.string(),
     customerType: Joi.string().valid(...Object.values(enumModel.EnumTypeOfCustomer)).required()
 });
 
@@ -200,6 +213,7 @@ export const createCustomerSchema = {
         customerInformation: CustomerInformationSchema.required(),
         accountInformation: AccountInformationSchema.required(),
         addresses: AddressSchema.required(),
+        billingInformations: BillingInformationSchema.required(),
         charges: ChargesSchema.required(),
     }).options({ allowUnknown: false })
 }
@@ -208,6 +222,15 @@ export const validateObjectId = {
     params: Joi.object().keys({
         customerId: Joi.objectId().required()
     })
+}
+
+export const updateStatus = {
+    body: Joi.object().keys({
+        status: Joi.string().valid(...Object.values(enumModel.EnumStatusOfUser)).required(),
+    }),
+    params: Joi.object().keys({
+        customerId: Joi.objectId().required()
+    }) 
 }
 
 export const searchByEmail = {

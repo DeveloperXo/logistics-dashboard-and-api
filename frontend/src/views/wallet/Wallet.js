@@ -20,19 +20,22 @@ import {
     CModalBody,
     CModalFooter,
 } from '@coreui/react';
-import { cilPencil, cilX, cilPlus, cilDollar } from "@coreui/icons";
+import { cilPlus, cilDollar } from "@coreui/icons";
 import CIcon from '@coreui/icons-react';
 import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate, useParams } from 'react-router-dom';
 import { alertConstants } from '../../constants/auxiliary.constants';
+import useAuth from '../../hooks/useAuth';
 
 const Wallet = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
+    const { auth } = useAuth();
     const [alert, setAlert] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [wallets, setWallets] = useState([]);
+    const [wallet, setWallet] = useState();
     const [receipt, setReceipt] = useState("");
     const [rechargeModalVisible, setRechargeModalVisible] = useState(false);
     const pagination_pages = [];
@@ -56,13 +59,17 @@ const Wallet = () => {
         try {
             setIsLoading(true);
             let response;
-            if (query) {
-                response = await axiosPrivate.get(`/common/wallet/paginate-with-user/${query.page}/${query.limit}`);
+            if (auth.role !== 'admin') {
+                response = await axiosPrivate.get(`/common/wallet/this-user-wallet-with-user`);
             } else {
-                response = await axiosPrivate.get('/common/wallet/paginate-with-user/1/10');
+                if (query) {
+                    response = await axiosPrivate.get(`/common/wallet/paginate-with-user/${query.page}/${query.limit}`);
+                } else {
+                    response = await axiosPrivate.get('/common/wallet/paginate-with-user/1/10');
+                }
             }
             const _wallets = response.data?.results;
-            setWallets(_wallets)
+            auth.role === 'admin' ? setWallets(_wallets) : setWallet(_wallets);
             setIsLoading(false);
         } catch (err) {
             setIsLoading(false);
@@ -100,7 +107,6 @@ const Wallet = () => {
         });
         setRechargeModalVisible(true);
     }
-    console.log(walletFormData)
 
     const handleWalletFormOnChange = (e) => {
         const { name, value, type } = e.target;
@@ -205,7 +211,6 @@ const Wallet = () => {
         if (wallets && wallets.results) {
             map_array = wallets.results;
             for (let i = 1; i <= wallets.totalPages; i++) { pagination_pages.push(i) }
-            console.log(wallets.totalPages)
         } else {
             map_array = wallets ? wallets : [];
         }
@@ -226,6 +231,23 @@ const Wallet = () => {
                     </CButton>
                 </div>
             })
+        });
+
+        wallet && items.push({
+            id: 0,
+            name: wallet.user.customerInformation.name,
+            email: wallet.user.accountInformation.email,
+            phone: wallet.user.customerInformation.phone,
+            balance: wallet.wallet.balance,
+            lastRechargeDate: wallet.wallet.lastRechargeDate ? wallet.wallet.lastRechargeDate.split('T')[0] : '-',
+            action: <div>
+                <CButton className="my-0 py-0" onClick={() => navigate(`/t-wallet-transactions`)}>
+                    <CIcon title="View" icon={cilPlus}></CIcon>
+                </CButton>
+                {/* <CButton className="my-0 py-0" onClick={() => handleAddMoneyToggler(wallet.user._id)}>
+                    <CIcon title="Add money" icon={cilDollar}></CIcon>
+                </CButton> */}
+            </div>
         })
     }
     return (
@@ -239,7 +261,7 @@ const Wallet = () => {
                     }
                     <CCard className="mb-4">
                         <CCardHeader className="d-flex justify-content-between align-items-center">
-                            <div><strong>Manage</strong> <small>Wallets</small></div>
+                            <div><strong>{ wallet ? 'Your' : 'Manage' }</strong> <small>{ wallet ? 'Wallet': 'Wallets' }</small></div>
                         </CCardHeader>
                         <CCardBody>
                             <div className="search-container d-flex justify-content-between">

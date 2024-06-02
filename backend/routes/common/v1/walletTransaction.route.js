@@ -25,11 +25,13 @@ router.route('/').get(auth(['admin']), walletTransactionController.listWalletTra
 
 router.route('/paginate/:page/:limit').get(auth(['admin']), validate(auxiliaryValidations.paginate), walletTransactionController.paginateWalletTransaction);
 
-router.route('/this/:walletTransactionId').get(validate(auth(['admin']), walletTransactionValidations.validateObjectId), walletTransactionController.getWalletTransaction);
+router.route('/this/:walletTransactionId').get(auth(['admin']), validate(walletTransactionValidations.validateObjectId), walletTransactionController.getWalletTransaction);
 
-router.route('/this-user/:customerId').get(validate(auth(['admin']), walletTransactionValidations.validateCustomerIdId), walletTransactionController.listThisUserWalletTransactionWithBalance);
+router.route('/this-user/:customerId').get(auth(['admin']), validate(walletTransactionValidations.validateCustomerIdId), walletTransactionController.listThisUserWalletTransactionWithBalance);
 
-router.route('/update/:walletTransactionId').put(validate(auth(['admin']), walletTransactionValidations.validateObjectId), walletTransactionController.updateWalletTransaction);
+router.route('/this-auth-user').get(auth(['admin', 'customer', 'businessAssociate']), walletTransactionController.getAuthUserWalletTransaction);
+
+router.route('/update/:walletTransactionId').put(auth(['admin']), validate(walletTransactionValidations.validateObjectId), walletTransactionController.updateWalletTransaction);
 
 router.route('/delete/:walletTransactionId').delete(auth(['admin']), validate(walletTransactionValidations.validateObjectId), walletTransactionController.removeWalletTransaction);
 
